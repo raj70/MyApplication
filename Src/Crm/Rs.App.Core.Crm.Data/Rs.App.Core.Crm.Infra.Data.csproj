@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Rs.App.Core.Crm.Infra</RootNamespace>
+    <AssemblyName>Rs.App.Core.Crm.Infra.Data</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <None Remove="Domain\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CrmMigrations\20200113111853_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113111853_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113112700_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113112700_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113113004_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113113004_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113113200_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113113200_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113115801_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113115801_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113120708_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113120708_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113120907_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113120907_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113122032_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113122032_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113122412_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113122412_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200113122459_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200113122459_CrmRepo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Repository\TitleContext.cs_1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Repository\TitleContext.cs_1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rs.App.Core.Crm\Rs.App.Core.Crm.csproj" />
+  </ItemGroup>
+
+</Project>

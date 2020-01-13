@@ -1,0 +1,28 @@
+﻿/** 
+* Copyright $year$ rajen shrestha
+* All right are reserved. Reproduction or transmission in whole or in
+* part, in any form or by any means, electronic, mechanical or otherwise
+* is published without the prior written consent of the copyright owner.
+* 
+* [$clrversion$]
+* Author: $username$ 
+* Machine: $machinename$
+* Time: $time$
+*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+/**
+namespace $rootnamespace$
+{
+    public class $itemname$
+    {
+        public $itemname$()
+        {
+
+        }
+    }   
+}
+*/

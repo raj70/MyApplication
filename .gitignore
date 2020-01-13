@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Src/Crm/Rs.App.Core.Crm.Data/CrmMigrations
