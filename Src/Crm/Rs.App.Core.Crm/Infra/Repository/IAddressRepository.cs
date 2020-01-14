@@ -6,7 +6,7 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 12:10:20 AM
+* Time: 1/14/2020 6:30:11 PM
 * 
 * [%clrversion%]
 */
@@ -17,7 +17,7 @@ using System.Text;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public interface IContactRepository : IRepository<Contact>, IURepository
+    public interface IAddressRepository : IRepository<Address>, IURepository
     {
     }
 }

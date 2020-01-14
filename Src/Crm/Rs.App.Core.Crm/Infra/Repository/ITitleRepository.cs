@@ -7,12 +7,9 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/13/2020 1:00:29 AM
+* Time: 1/14/2020 5:33:59 PM
 */
-/*
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Rs.App.Core.Crm.MsSql.Domain;
+using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +18,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public class TitleContext : AbstractDataContext<TitleContext>
+    public interface ITitleRepository : IRepository<Title>, IURepository
     {
-        public TitleContext(IConfiguration configuration, DbContextOptions<TitleContext> options)
-            : base(configuration, options)
-        {
-        }
-
-        public virtual DbSet<Title> Titles { get; set; }
     }
 }
-}
-*/

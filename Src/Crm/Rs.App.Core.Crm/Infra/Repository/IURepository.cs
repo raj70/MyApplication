@@ -6,18 +6,20 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 12:10:20 AM
+* Time: 1/14/2020 5:45:45 PM
 * 
 * [%clrversion%]
 */
-using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public interface IContactRepository : IRepository<Contact>, IURepository
+    // Unit of work
+    public interface IURepository
     {
+        void CompleteAsync();
+        void Complete();
     }
 }

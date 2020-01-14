@@ -7,35 +7,32 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 12:11:30 AM
+* Time: 1/14/2020 5:31:56 PM
 */
 using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    /* Actually, IContactRepository is for DI and any extract works than CRUD */
-    public class ContactRepository : AbstractRepository<Contact>, IContactRepository 
+    public class TitleRepository: AbstractRepository<Title>, ITitleRepository
     {
-        protected ContactContext DbContactContext;
-        public ContactRepository(ContactContext DbContactContext) : base(DbContactContext)
+        public TitleRepository(TitleContext dbContext) : base(dbContext)
         {
 
         }
 
         public void Complete()
         {
-            this.DbContactContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public async void CompleteAsync()
         {
-            await this.DbContactContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

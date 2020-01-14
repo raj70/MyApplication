@@ -60,7 +60,7 @@ namespace Rs.App.Core.Crm.Infra.Repository
             throw new NotImplementedException();
         }
 
-        private DbSet<T> Set()
+        protected virtual DbSet<T> Set()
         {
             return _dbContext.Set<T>();
         }

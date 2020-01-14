@@ -6,7 +6,7 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 12:10:20 AM
+* Time: 1/14/2020 6:42:30 PM
 * 
 * [%clrversion%]
 */
@@ -15,9 +15,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rs.App.Core.Crm.Infra.Repository
+namespace Rs.App.Core.Crm.Infra.Services
 {
-    public interface IContactRepository : IRepository<Contact>, IURepository
+    public interface IContactService
     {
+        IEnumerable<Contact> GetAll();
+        Contact Get(Guid id);
     }
 }
