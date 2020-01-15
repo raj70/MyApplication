@@ -35,8 +35,8 @@ namespace Rs.App.Core.Crm.Infra.Configurations
             builder.Property(nameof(Address.Id)).ValueGeneratedOnAdd();
 
             builder.Property(nameof(Address.Line1)).HasMaxLength(150).IsRequired();
-            builder.Property(nameof(Address.City)).HasMaxLength(25).IsRequired();
-            builder.Property(nameof(Address.Country)).HasMaxLength(25).IsRequired();           
+            builder.Property(nameof(Address.City)).HasMaxLength(50).IsRequired();
+            builder.Property(nameof(Address.Country)).HasMaxLength(50).IsRequired();           
         }
     }
 }
