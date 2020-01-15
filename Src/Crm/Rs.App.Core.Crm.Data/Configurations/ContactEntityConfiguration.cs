@@ -39,18 +39,8 @@ namespace Rs.App.Core.Crm.Infra.Configurations
             builder.Property(nameof(Contact.Dod)).HasColumnType(nameof(DateTime));
             builder.Property(nameof(Contact.IsActive)).HasDefaultValue(true);
 
-            
-            //builder
-            //    .HasMany(a => a.HomeAddress)
-            //    .WithOne(b => b.ContactHome)
-            //    .HasForeignKey<Contact>(b => b.AddressId);
-
-            //builder
-            //    .HasOne(a => a.Title)
-            //    .WithOne(b => b.Contact)
-            //    .HasForeignKey<Title>(b => b.Id);
-
-
+            builder.Ignore(nameof(Contact.DeliveryAddress));
+            builder.Ignore(nameof(Contact.IsDeliverSameAsHomeAddress));
         }
     }
 }

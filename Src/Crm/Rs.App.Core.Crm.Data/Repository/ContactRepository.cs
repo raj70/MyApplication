@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/14/2020 12:11:30 AM
 */
+using Microsoft.EntityFrameworkCore;
 using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,14 @@ using System.Threading.Tasks;
 namespace Rs.App.Core.Crm.Infra.Repository
 {
     /* Actually, IContactRepository is for DI and any extract works than CRUD */
-    public class ContactRepository : AbstractRepository<Contact>, IContactRepository 
+    public class ContactRepository : AbstractRepository<Contact>, IContactRepository
     {
         protected ContactContext DbContactContext;
-        public ContactRepository(ContactContext DbContactContext) : base(DbContactContext)
+        public ContactRepository(ContactContext dbContactContext) : base(dbContactContext)
         {
-
+            DbContactContext = dbContactContext;
         }
+
 
         public void Complete()
         {
@@ -36,6 +38,25 @@ namespace Rs.App.Core.Crm.Infra.Repository
         public async void CompleteAsync()
         {
             await this.DbContactContext.SaveChangesAsync();
+        }
+
+
+        public override IEnumerable<Contact> GetAll()
+        {
+            var db = DbContactContext.Contacts
+                .Include(c => c.HomeAddress)
+                .Include(c => c.Title);
+            return db.ToList();
+        }
+
+        public IEnumerable<Contact> GetAll(int pageIndex = 1, int pageSize = 10)
+        {
+            var db = DbContactContext.Contacts
+                .Include(c => c.HomeAddress)
+                .Include(c => c.Title)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+            return db.ToList();
         }
     }
 }

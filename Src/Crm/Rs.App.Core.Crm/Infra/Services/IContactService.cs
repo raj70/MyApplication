@@ -14,12 +14,14 @@ using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Services
 {
     public interface IContactService
     {
-        IEnumerable<Contact> GetAll();
-        Contact Get(Guid id);
+        Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10);
+        Task<IEnumerable<Contact>> GetAllAsync();
+        Task<Contact> GetAsync(Guid id);
     }
 }

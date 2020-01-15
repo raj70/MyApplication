@@ -13,26 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="CrmMigrations\20200113111853_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113111853_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113112700_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113112700_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113113004_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113113004_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113113200_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113113200_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113115801_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113115801_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113120708_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113120708_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113120907_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113120907_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113122032_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113122032_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113122412_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113122412_CrmRepo.Designer.cs" />
-    <Compile Remove="CrmMigrations\20200113122459_CrmRepo.cs" />
-    <Compile Remove="CrmMigrations\20200113122459_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200114120046_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200114120046_CrmRepo.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

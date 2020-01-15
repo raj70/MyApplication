@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Domain
 {
+    // Tabular Module
     public class Contact
     {
         public Contact()
@@ -43,8 +44,17 @@ namespace Rs.App.Core.Crm.Domain
         public DateTime? Dob { get; set; } = DateTime.Now.AddYears(-18);
         public DateTime? Dod { get; set; }
 
-        public virtual Address HomeAddress { get; set; }
-        public virtual Title Title { get; set; }
+        public bool IsDeliverSameAsHomeAddress
+        {
+            get
+            {
+                return AddressId.Equals(DeliveryAddressId);
+            }
+        }
 
+        // not mapped
+        public virtual Address DeliveryAddress { get; set; }
+        public virtual Address HomeAddress { get; set; }
+        public virtual Title Title { get; set; }        
     }
 }

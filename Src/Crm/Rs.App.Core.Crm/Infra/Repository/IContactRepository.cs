@@ -19,5 +19,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
 {
     public interface IContactRepository : IRepository<Contact>, IURepository
     {
+        IEnumerable<Contact> GetAll(int pageIndex, int pageSize = 10);
     }
 }

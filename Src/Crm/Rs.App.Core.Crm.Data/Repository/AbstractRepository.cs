@@ -41,7 +41,7 @@ namespace Rs.App.Core.Crm.Infra.Repository
             return this.Set().Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return this.Set().ToList();
         }

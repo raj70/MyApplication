@@ -37,15 +37,33 @@ namespace Rs.App.Core.Crm.Infra.Services
             _addressRepository = addressRepository;
         }
 
-        public Contact Get(Guid id)
+        public async Task<Contact> GetAsync(Guid id)
         {
-            var contact = _contactRepository.Get(id);
+            var contact = await Task.Run(() => _contactRepository.Get(id));
             return contact;
         }
 
-        public IEnumerable<Contact> GetAll()
+        public async Task<IEnumerable<Contact>> GetAllAsync()
         {
-            var contacts = _contactRepository.GetAll();
+            var contacts = await Task.Run(() => {                
+                    var cs =_contactRepository.GetAll();
+                    return cs;
+                });
+
+            // TODO: need to think
+            await Task.Run(() => contacts.ToList().ForEach(x => x.DeliveryAddress = _addressRepository.Get(x.DeliveryAddressId)));
+
+            return contacts;
+        }
+
+        public async Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10)
+        {
+            var contacts = await Task.Run(() => _contactRepository.GetAll(pageIndex, pageSize));
+
+            // TODO: need to think: how to include deliveryaddress from repository; so that I can remove this line
+            await Task.Run(() => contacts.ToList().ForEach(x => x.DeliveryAddress = _addressRepository.Get(x.DeliveryAddressId)));
+
+            // throw new Exception("Mate this is just a test");
             return contacts;
         }
     }
