@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Rs.App.Core.Crm.Infra.Repository;
 using Rs.App.Core.Crm.Infra.Services;
+using Rs.App.Core.Crm.Validation;
 using Rs.App.Core.Crm.Web.Api.AppConfig;
 using Rs.App.Core.Crm.Web.Api.CustomMiddleware;
 
@@ -29,10 +32,19 @@ namespace Rs.App.Core.Crm.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation(opt =>
+                {
+                    opt.RegisterValidatorsFromAssemblyContaining<ContactModelValidator>();
+                });
 
-            DbConfig.AddDbs(services, Configuration);           
+            DbConfig.AddDbs(services, Configuration);
+
+            services.AddOpenApiDocument();
+            services.AddAntiforgery();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,7 +59,6 @@ namespace Rs.App.Core.Crm.Web.Api
             }
 
             app.UseGeneralExceptionHandler();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -56,6 +67,9 @@ namespace Rs.App.Core.Crm.Web.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }

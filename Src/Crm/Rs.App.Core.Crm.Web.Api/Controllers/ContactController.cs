@@ -42,7 +42,6 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 
         // POST: api/Index
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
         public IActionResult Post([FromBody] Contact contact)
         {
             return NoContent();            
@@ -51,7 +50,6 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         // update
         // PUT: api/Index/5
         [HttpPut("{id}")]
-        [AutoValidateAntiforgeryToken]
         public IActionResult Put(Guid id, [FromBody] string value)
         {
             return NoContent();
