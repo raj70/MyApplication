@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Services;
 
@@ -14,16 +16,18 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
+        private readonly ILogger<ContactController> _logger;
 
-        public ContactController(IContactService contactService)
+        public ContactController(IContactService contactService, ILogger<ContactController> logger)
         {
             _contactService = contactService;
+            _logger = logger;
         }
         // GET: api/Index
-        [HttpGet(Name ="GetContacts")]
+        [HttpGet(Name = "GetContacts")]
         public async Task<ActionResult<IEnumerable<Contact>>> Get()
         {
-            var contacts = await _contactService.GetAllAsync(1);
+            var contacts = await _contactService.GetAllAsync(pageIndex: 1);
 
             return Ok(contacts);
         }
@@ -33,35 +37,46 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         public async Task<ActionResult<Contact>> Get(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
-            if(contact == null)
+
+            if (contact == null)
             {
                 return NotFound();
             }
+
             return Ok(contact);
         }
 
         // Add new
         // POST: api/Index
-        [HttpPost]
-        public IActionResult Post([FromBody] Contact contact)
+        [HttpPost(Name ="AddContact")]
+        public async Task<IActionResult> Post([FromBody] ContactClient contact)
         {
-            return NoContent();            
+            try
+            {
+                await _contactService.AddedAsync(contact);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error has encounterd");
+                return StatusCode(500);
+            }          
         }
 
         // update
         // PUT: api/Index/5
-        [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] Contact contact)
+        [HttpPut("{id}", Name ="UpdateContact")]
+        public IActionResult Put(Guid id, [FromBody] ContactClient contact)
         {
             return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name ="DeleteContact")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
-            
+
             return NoContent();
         }
     }

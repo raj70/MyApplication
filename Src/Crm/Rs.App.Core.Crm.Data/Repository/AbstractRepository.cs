@@ -36,7 +36,7 @@ namespace Rs.App.Core.Crm.Infra.Repository
             return this.Set().Where(predicate);
         }
 
-        public T Get(Guid id)
+        public virtual T Get(Guid id)
         {
             return this.Set().Find(id);
         }

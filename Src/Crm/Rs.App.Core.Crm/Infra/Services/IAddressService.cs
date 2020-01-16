@@ -6,7 +6,7 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 6:30:11 PM
+* Time: 1/16/2020 3:28:15 PM
 * 
 * [%clrversion%]
 */
@@ -14,11 +14,12 @@ using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Infra.Repository
+namespace Rs.App.Core.Crm.Infra.Services
 {
-    public interface IAddressRepository : IRepository<Address>, IURepository
+    public interface IAddressService
     {
-        Address Exist(Address address);
+        Task<Address> GetAddress(Guid id);
     }
 }

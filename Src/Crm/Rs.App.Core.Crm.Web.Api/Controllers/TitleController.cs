@@ -28,7 +28,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return title;
         }
 
-        [HttpGet(Name = "GetAll")]
+        [HttpGet(Name = "GetTitles")]
         public async Task<IEnumerable<Title>> GetAll()
         {
             var titles = await _titleService.GetAllAsync();

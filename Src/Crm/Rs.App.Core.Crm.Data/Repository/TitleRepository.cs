@@ -30,9 +30,16 @@ namespace Rs.App.Core.Crm.Infra.Repository
             _dbContext.SaveChanges();
         }
 
-        public async void CompleteAsync()
+        public async Task CompleteAsync()
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Title Exist(Title title)
+        {
+            var t = Find(x => x.Name == title.Name).FirstOrDefault();
+
+            return t;
         }
     }
 }

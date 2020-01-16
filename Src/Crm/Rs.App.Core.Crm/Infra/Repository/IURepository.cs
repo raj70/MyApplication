@@ -13,13 +13,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
     // Unit of work
     public interface IURepository
     {
-        void CompleteAsync();
+        Task CompleteAsync();
         void Complete();
     }
 }

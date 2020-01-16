@@ -35,11 +35,36 @@ namespace Rs.App.Core.Crm.Infra.Repository
             this.DbContactContext.SaveChanges();
         }
 
-        public async void CompleteAsync()
+        public async Task CompleteAsync()
         {
             await this.DbContactContext.SaveChangesAsync();
         }
 
+        public Contact Exist(Contact contact)
+        {
+            var c = Find(x =>
+                x.LastName.ToLower() == contact.LastName.ToLower() &&
+                x.Name.ToLower() == contact.Name.ToLower() &&
+                x.MiddleName .ToLower() == contact.MiddleName.ToLower() &&
+                x.MobileNumber.ToLower() == contact.MobileNumber.ToLower() &&
+                x.PhoneNumber.ToLower() == contact.PhoneNumber.ToLower() &&
+                x.Title.Id == contact.TitleId &&
+                //x.Dob.Value == contact.Dob.Value &&
+                x.EmailAddress.ToLower() == contact.EmailAddress.ToLower()                
+            ).FirstOrDefault();
+
+            return c;
+        }
+
+        public override Contact Get(Guid id)
+        {
+            var db = DbContactContext.Contacts
+                .Where(x => x.Id == id)
+                .Include(x => x.HomeAddress)
+                .Include(x => x.Title).FirstOrDefault();
+
+            return db;
+        }
 
         public override IEnumerable<Contact> GetAll()
         {

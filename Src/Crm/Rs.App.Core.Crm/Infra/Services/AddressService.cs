@@ -6,12 +6,12 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 6:42:30 PM
+* Time: 1/16/2020 3:29:11 PM
 * 
 * [%clrversion%]
 */
-using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Infra.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,11 +19,20 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Services
 {
-    public interface IContactService
+    public class AddressService : IAddressService
     {
-        Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10);
-        Task<IEnumerable<Contact>> GetAllAsync();
-        Task<Contact> GetAsync(Guid id);
-        Task AddedAsync(ContactClient contactClient);
+        private readonly IAddressRepository _addressRepository;
+
+        public AddressService(IAddressRepository addressRepository)
+        {
+            _addressRepository = addressRepository;
+        }
+
+        public async Task<Address> GetAddress(Guid id)
+        {
+            var address = await Task.Run(() => _addressRepository.Get(id));
+
+            return address;
+        }
     }
 }

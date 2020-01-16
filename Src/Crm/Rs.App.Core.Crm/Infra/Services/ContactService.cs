@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/14/2020 6:39:17 PM
 */
+using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Repository;
 using System;
@@ -27,9 +28,9 @@ namespace Rs.App.Core.Crm.Infra.Services
         private readonly IAddressRepository _addressRepository;
 
         public ContactService(IContactRepository contactRepository,
+            IAddressRepository addressRepository,
             ITitleRepository titleRepository,
-            INoteRepository noteRepository,
-            IAddressRepository addressRepository)
+            INoteRepository noteRepository)
         {
             _contactRepository = contactRepository;
             _titleRepository = titleRepository;
@@ -39,19 +40,28 @@ namespace Rs.App.Core.Crm.Infra.Services
 
         public async Task<Contact> GetAsync(Guid id)
         {
-            var contact = await Task.Run(() => _contactRepository.Get(id));
+            var contact = await Task.Run(() =>
+           {
+               var contact = _contactRepository.Get(id);
+               if (!contact.IsDeliverSameAsHomeAddress)
+               {
+                   contact.DeliveryAddress = GetDeliveryAddress(contact);
+               }
+               return _contactRepository.Get(id);
+           });
             return contact;
         }
 
         public async Task<IEnumerable<Contact>> GetAllAsync()
         {
-            var contacts = await Task.Run(() => {                
-                    var cs =_contactRepository.GetAll();
-                    return cs;
-                });
+            var contacts = await Task.Run(() =>
+            {
+                var cs = _contactRepository.GetAll();
+                return cs;
+            });
 
             // TODO: need to think
-            await Task.Run(() => contacts.ToList().ForEach(x => x.DeliveryAddress = _addressRepository.Get(x.DeliveryAddressId)));
+            await Task.Run(() => contacts.ToList().ForEach(x => GetDeliveryAddress(x)));
 
             return contacts;
         }
@@ -61,10 +71,74 @@ namespace Rs.App.Core.Crm.Infra.Services
             var contacts = await Task.Run(() => _contactRepository.GetAll(pageIndex, pageSize));
 
             // TODO: need to think: how to include deliveryaddress from repository; so that I can remove this line
-            await Task.Run(() => contacts.ToList().ForEach(x => x.DeliveryAddress = _addressRepository.Get(x.DeliveryAddressId)));
+            await Task.Run(() => contacts.ToList().ForEach(x => GetDeliveryAddress(x)));
 
             // throw new Exception("Mate this is just a test");
             return contacts;
+        }
+
+        public async Task AddedAsync(ContactClient contactClient)
+        {
+            await Task.Run(() =>
+            {
+                var existed_title = _titleRepository.Exist(new Title() { Name = contactClient.Title });
+
+                var title = new Title()
+                {
+                    Name = contactClient.Name
+                };
+
+                Address new_address = contactClient.GetAddress();
+                var existed_address = _addressRepository.Exist(new_address);
+
+                Address new_deliveryAddress = contactClient.GetDeliveryAdress();
+                Address existed_deliveryAddress = null;
+                if (!contactClient.IsDeliverSameAsHomeAddress)
+                {
+                    existed_deliveryAddress = _addressRepository.Exist(new_deliveryAddress);
+                    if (existed_deliveryAddress == null)
+                    {
+                        _addressRepository.Add(new_deliveryAddress);
+                        _addressRepository.Complete(); 
+                    }
+                }
+
+                var contact = contactClient.GetContact();
+                contact.TitleId = existed_title == null ? title.Id : existed_title.Id;
+                contact.Title = existed_title == null ? title : null;
+
+                contact.HomeAddress = existed_address == null ? new_address : null; /* we don't want to add existed address again (fail) */
+                contact.AddressId = existed_address == null ? new_address.Id : existed_address.Id;
+
+                contact.DeliveryAddressId = contactClient.IsDeliverSameAsHomeAddress
+                                            ? new_address.Id
+                                            : (existed_deliveryAddress != null ? existed_deliveryAddress.Id : new_deliveryAddress.Id);
+
+
+                var existed_contact = _contactRepository.Exist(contact);
+                if (existed_contact == null)
+                {
+                    _contactRepository.Add(contact);
+                }
+            });
+
+            _contactRepository.Complete();
+        }
+
+
+        /// <summary>
+        /// return null if the Delivery Address same As Home Address
+        /// </summary>
+        /// <param name="contact"></param>
+        /// <returns></returns>
+        private Address GetDeliveryAddress(Contact contact)
+        {
+            Address delAddress = null;
+            if (!contact.IsDeliverSameAsHomeAddress)
+            {
+                delAddress = _addressRepository.Get(contact.DeliveryAddressId);
+            }
+            return delAddress;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Rs.App.Core.Crm.Infra.Repository
             _dbContext.SaveChanges();
         }
 
-        public async void CompleteAsync()
+        public async Task CompleteAsync()
         {
             await _dbContext.SaveChangesAsync();
         }

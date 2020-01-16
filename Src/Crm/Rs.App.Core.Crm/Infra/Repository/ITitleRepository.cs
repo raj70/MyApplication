@@ -20,5 +20,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
 {
     public interface ITitleRepository : IRepository<Title>, IURepository
     {
+        Title Exist(Title title);
     }
 }

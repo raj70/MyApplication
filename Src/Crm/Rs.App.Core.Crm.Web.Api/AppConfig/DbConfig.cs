@@ -27,6 +27,7 @@ namespace Rs.App.Core.Crm.Web.Api.AppConfig
 
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<ITitleService, TitleService>();
+            services.AddScoped<IAddressService, AddressService>();
         }
     }
 }

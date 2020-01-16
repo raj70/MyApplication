@@ -66,5 +66,13 @@ namespace Rs.App.Core.Crm.Infra.Repository
 
             base.OnModelCreating(modelBuilder);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+#if DEBUG
+            optionsBuilder.EnableSensitiveDataLogging();
+#endif
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }
