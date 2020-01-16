@@ -28,7 +28,7 @@ namespace Rs.App.Core.Crm.Infra.Configurations
 
             builder.HasKey(nameof(Title.Id));
             builder.Property(nameof(Title.Id)).ValueGeneratedOnAdd();
-            builder.Property(nameof(Title.Name)).IsRequired().HasMaxLength(4);
+            builder.Property(nameof(Title.Name)).IsRequired().HasMaxLength(12);
         }
     }
 }

@@ -5,12 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Class1.A_template" />
     <None Remove="Interface1.A_template" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Class1.A_template" />
     <Compile Include="Interface1.A_template" />
   </ItemGroup>
 

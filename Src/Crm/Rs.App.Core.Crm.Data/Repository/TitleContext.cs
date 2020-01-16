@@ -22,20 +22,33 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-	public class TitleContext : AbstractDataContext<TitleContext>
-	{
-		public TitleContext(IConfiguration configuration, DbContextOptions<TitleContext> options)
-			: base(configuration, options)
-		{
-		}
+    public class TitleContext : AbstractDataContext<TitleContext>
+    {
+        public TitleContext(IConfiguration configuration, DbContextOptions<TitleContext> options)
+            : base(configuration, options)
+        {
+        }
 
-		public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<Title> Titles { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			modelBuilder.ApplyConfiguration<Title>(new TitleEntityConfiguration());
-			base.OnModelCreating(modelBuilder);
-		}
-	}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration<Title>(new TitleEntityConfiguration());
+
+            modelBuilder.Entity<Title>().HasData(
+                new Title() { Name = "Mr" },
+                new Title() { Name = "Mrs" },
+                new Title() { Name = "Dr" },
+                new Title() { Name = "Prof" },
+                new Title() { Name = "Mx" },
+                new Title() { Name = "Master" },
+                new Title() { Name = "Miss" },
+                new Title() { Name = "Maid" },
+                new Title() { Name = "Madam" }
+                );           
+
+            base.OnModelCreating(modelBuilder);
+        }
+    }
 }
 

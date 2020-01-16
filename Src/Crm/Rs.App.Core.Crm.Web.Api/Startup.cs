@@ -39,8 +39,7 @@ namespace Rs.App.Core.Crm.Web.Api
                     opt.RegisterValidatorsFromAssemblyContaining<ContactModelValidator>();
                 });
 
-            DbConfig.AddDbs(services, Configuration);
-
+            services.AddDbsAndServices(Configuration);
             services.AddOpenApiDocument();
             services.AddAntiforgery();
         }

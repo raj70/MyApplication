@@ -20,7 +20,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             _contactService = contactService;
         }
         // GET: api/Index
-        [HttpGet]
+        [HttpGet(Name ="GetContacts")]
         public async Task<ActionResult<IEnumerable<Contact>>> Get()
         {
             var contacts = await _contactService.GetAllAsync(1);
@@ -29,7 +29,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         }
 
         // GET: api/Index/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetContact")]
         public async Task<ActionResult<Contact>> Get(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
@@ -40,6 +40,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return Ok(contact);
         }
 
+        // Add new
         // POST: api/Index
         [HttpPost]
         public IActionResult Post([FromBody] Contact contact)
@@ -50,7 +51,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         // update
         // PUT: api/Index/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] string value)
+        public IActionResult Put(Guid id, [FromBody] Contact contact)
         {
             return NoContent();
         }

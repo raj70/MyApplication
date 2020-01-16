@@ -22,7 +22,7 @@ namespace Rs.App.Core.Crm.Domain
         public Address()
         {
         }
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Line1 { get; set; } = string.Empty;
         public string Line2 { get; set; } = string.Empty;
         public string Line3 { get; set; } = string.Empty;

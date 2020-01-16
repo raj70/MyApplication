@@ -12,7 +12,7 @@ namespace Rs.App.Core.Crm.Web.Api.AppConfig
 {
     public static class DbConfig
     {
-        public static void AddDbs(IServiceCollection services, IConfiguration configuration)
+        public static void AddDbsAndServices(this IServiceCollection services, IConfiguration configuration)
         {
             // databases
             services.AddDbContext<ContactContext>(o => o.UseSqlServer(configuration.GetConnectionString("CrmConnString")));
@@ -26,6 +26,7 @@ namespace Rs.App.Core.Crm.Web.Api.AppConfig
             services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<ITitleService, TitleService>();
         }
     }
 }

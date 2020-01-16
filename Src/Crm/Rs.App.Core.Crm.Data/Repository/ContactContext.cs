@@ -40,7 +40,31 @@ namespace Rs.App.Core.Crm.Infra.Repository
             modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
             modelBuilder.ApplyConfiguration(new TitleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new NotesEntityConfiguration());
+
+            modelBuilder.Entity<Title>().HasData(
+             new Title() { Name = "Mr" },
+             new Title() { Name = "Mrs" },
+             new Title() { Name = "Dr" },
+             new Title() { Name = "Prof" },
+             new Title() { Name = "Mx" },
+             new Title() { Name = "Master" },
+             new Title() { Name = "Miss" },
+             new Title() { Name = "Maid" },
+             new Title() { Name = "Madam" }
+             );
+
+            modelBuilder.Entity<Address>().HasData(
+                   new Address()
+                   {
+                       City = "Sydney",
+                       Country = "Australia",
+                       Line1 = "George Street",
+                       PostalCode = "2000",
+                       State = "NSW"
+                   }
+               );
+
             base.OnModelCreating(modelBuilder);
-        }       
+        }
     }
 }
