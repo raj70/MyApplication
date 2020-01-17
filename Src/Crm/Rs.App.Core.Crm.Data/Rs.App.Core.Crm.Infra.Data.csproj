@@ -17,6 +17,8 @@
     <Compile Remove="CrmMigrations\20200114120046_CrmRepo.Designer.cs" />
     <Compile Remove="CrmMigrations\20200114120934_CrmRepo.cs" />
     <Compile Remove="CrmMigrations\20200114120934_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200115195215_CrmRepo.cs" />
+    <Compile Remove="CrmMigrations\20200115195215_CrmRepo.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

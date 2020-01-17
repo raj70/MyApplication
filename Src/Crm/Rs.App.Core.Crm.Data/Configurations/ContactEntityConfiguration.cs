@@ -35,8 +35,8 @@ namespace Rs.App.Core.Crm.Infra.Configurations
             builder.Property(nameof(Contact.MiddleName)).HasMaxLength(25).IsRequired();
             builder.Property(nameof(Contact.MobileNumber)).HasMaxLength(25).IsRequired();
 
-            builder.Property(nameof(Contact.Dob)).HasColumnType(nameof(DateTime));
-            builder.Property(nameof(Contact.Dod)).HasColumnType(nameof(DateTime));
+            builder.Property(nameof(Contact.Dob)).HasColumnType(nameof(DateTime.Now.Date));
+            builder.Property(nameof(Contact.Dod)).HasColumnType(nameof(DateTime.Now.Date));
             builder.Property(nameof(Contact.IsActive)).HasDefaultValue(true);
 
             builder.Ignore(nameof(Contact.DeliveryAddress));
