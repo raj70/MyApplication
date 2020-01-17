@@ -12,8 +12,10 @@
 */
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Repository;
+using Rs.App.Core.Crm.Messages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +28,37 @@ namespace Rs.App.Core.Crm.Infra.Services
         public AddressService(IAddressRepository addressRepository)
         {
             _addressRepository = addressRepository;
+        }
+
+        public async Task<IEnumerable<Address>> AllNotUsed()
+        {
+            var addresses = await Task.Run(() => _addressRepository.AllNotUsed());
+            return addresses;
+        }
+
+        public async Task<Result> DeleteAsync(Guid id)
+        {
+            var result = await Task.Run(() => {
+                var result = new Result();
+
+                var addresses = _addressRepository.AllNotUsed();
+                var existed_NotUsed_address = addresses.Where(x => x.Id == id).FirstOrDefault();
+                if (existed_NotUsed_address == null)
+                {
+                    result.IsError = true;
+                    result.Message = "Not able to delete the address, make sure the address is not used";
+                    result.StatuCode = 400;
+                }
+                else
+                {
+                    _addressRepository.Remove(id);
+                    _addressRepository.Complete();
+                }
+
+                return result;
+            });
+
+            return result;
         }
 
         public async Task<Address> GetAddress(Guid id)

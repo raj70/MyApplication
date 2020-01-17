@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/14/2020 6:33:03 PM
 */
+using Microsoft.EntityFrameworkCore;
 using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,21 @@ namespace Rs.App.Core.Crm.Infra.Repository
 {
     public class AddressRepository : AbstractRepository<Address>, IAddressRepository
     {
+        private readonly AddressContext addressContext;
         public AddressRepository(AddressContext dbContext) : base(dbContext)
         {
+            addressContext = dbContext;
+        }
 
+        public IEnumerable<Address> AllNotUsed()
+        {
+            return addressContext.Addresses.FromSqlRaw(@"
+                    select 
+	                    a.* from Addresss a
+                    left outer join Contacts c on a.Id = c.AddressId
+                    left outer join Contacts cd on a.Id = cd.DeliveryAddressId
+                    where c.id is null and cd.id is null")
+                .ToList();
         }
 
         public void Complete()

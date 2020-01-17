@@ -20,5 +20,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
     public interface IAddressRepository : IRepository<Address>, IURepository
     {
         Address Exist(Address address);
+        IEnumerable<Address> AllNotUsed();
     }
 }

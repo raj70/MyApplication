@@ -11,6 +11,7 @@
 * [%clrversion%]
 */
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Messages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,5 +22,9 @@ namespace Rs.App.Core.Crm.Infra.Services
     public interface IAddressService
     {
         Task<Address> GetAddress(Guid id);
+
+        Task<IEnumerable<Address>> AllNotUsed();
+
+        Task<Result> DeleteAsync(Guid id);
     }
 }
