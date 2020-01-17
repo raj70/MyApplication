@@ -27,5 +27,6 @@ namespace Rs.App.Core.Crm.Infra.Services
         Task<Contact> GetAsync(Guid id);
         Task<Result> AddedAsync(ContactClient contactClient);
         Task<Result> UpdateAsync(Guid id, ContactUpdate contact);
+        Task<Result> DeleteAsync(Guid id);
     }
 }

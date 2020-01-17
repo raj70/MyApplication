@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Infra.Services;
 
 namespace Rs.App.Core.Crm.Web.Api.Controllers
@@ -83,20 +84,26 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
                 }
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch(CrmException ex)
             {
                 _logger.LogError(ex, "Error has encounterd");
                 return StatusCode(500);
-            }
+            }// general exception should be handled by ExceptionMiddleware
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}", Name ="DeleteContact")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var contact = await _contactService.GetAsync(id);
+            var result = await _contactService.DeleteAsync(id);
 
-            return NoContent();
+            if (result.IsError)
+            {
+                result.StatuCode = 400;
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }

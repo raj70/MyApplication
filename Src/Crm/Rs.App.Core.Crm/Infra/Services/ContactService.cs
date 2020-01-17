@@ -203,5 +203,30 @@ namespace Rs.App.Core.Crm.Infra.Services
             return result;
         }
 
+        public async Task<Result> DeleteAsync(Guid id)
+        {
+            var result = await Task.Run(() =>
+            {
+                var result = new Result();
+
+                var contact = _contactRepository.Get(id);
+                if (contact == null)
+                {
+                    result.IsError = false;
+                    result.Message = "Contact does not exist";
+                    result.StatuCode = 400;
+                }
+                else
+                {
+                    _contactRepository.Remove(id);
+                    _contactRepository.Complete();
+                }
+
+                return result;
+            });
+
+            return result;
+        }
+
     }
 }
