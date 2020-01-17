@@ -53,8 +53,13 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         {
             try
             {
-                await _contactService.AddedAsync(contact);
-                return Ok();
+                var result = await _contactService.AddedAsync(contact);
+                if (result.IsError)
+                {
+                    result.StatuCode = 400;
+                    return BadRequest(result);
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -66,9 +71,23 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         // update
         // PUT: api/Index/5
         [HttpPut("{id}", Name ="UpdateContact")]
-        public IActionResult Put(Guid id, [FromBody] ContactClient contact)
+        public async Task<IActionResult> Put(Guid id, [FromBody] ContactUpdate contact)
         {
-            return NoContent();
+            try
+            {
+                var result = await _contactService.UpdateAsync(id, contact);
+                if (result.IsError)
+                {
+                    result.StatuCode = 400;
+                    return BadRequest(result);
+                }
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error has encounterd");
+                return StatusCode(500);
+            }
         }
 
         // DELETE: api/ApiWithActions/5

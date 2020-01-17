@@ -21,5 +21,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
     {
         IEnumerable<Contact> GetAll(int pageIndex, int pageSize = 10);
         Contact Exist(Contact contact);
+        void Update(Guid id, Contact c);
     }
 }

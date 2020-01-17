@@ -7,28 +7,32 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/12/2020 7:44:01 PM
+* Time: 1/17/2020 5:22:43 PM
 */
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Domain
+namespace Rs.App.Core.Crm.Messages
 {
-    public class Title
+    public class Result
     {
-        public Title()
+        public Result()
         {
 
         }
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = "Mr";
+
+        public bool IsError { get; set; } = false;
+        public string Message { get; set; } = "Successful";
+        public int StatuCode { get; set; } = 200;
 
         public override string ToString()
         {
-            return Name;
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
+

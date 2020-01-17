@@ -12,6 +12,7 @@
 */
 using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Messages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Rs.App.Core.Crm.Infra.Services
         Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10);
         Task<IEnumerable<Contact>> GetAllAsync();
         Task<Contact> GetAsync(Guid id);
-        Task AddedAsync(ContactClient contactClient);
+        Task<Result> AddedAsync(ContactClient contactClient);
+        Task<Result> UpdateAsync(Guid id, ContactUpdate contact);
     }
 }

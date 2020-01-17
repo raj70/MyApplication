@@ -64,5 +64,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
         {
             return _dbContext.Set<T>();
         }
+
     }
 }

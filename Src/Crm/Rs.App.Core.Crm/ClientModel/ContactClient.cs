@@ -18,27 +18,12 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.ClientModel
 {
-    public class ContactClient
+    public sealed class ContactClient : ClientModel.ContactUpdate
     {
         public ContactClient()
         {
 
         }
-
-        public string Title { get; set; } = "Mr";
-        public string Name { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string MobileNumber { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public string EmailAddress { get; set; }
-
-        //The 'bool' property 'IsActive' on entity type 'Contact' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'
-        public bool? IsActive { get; set; }
-
-        public DateTime? Dob { get; set; } = DateTime.Now.AddYears(-18);
-        public DateTime? Dod { get; set; }
-
         public string HomeLine1 { get; set; } = string.Empty;
         public string HomeLine2 { get; set; } = string.Empty;
         public string HomeLine3 { get; set; } = string.Empty;
@@ -81,22 +66,7 @@ namespace Rs.App.Core.Crm.ClientModel
                 PostalCode = HomePostalCode,
                 State = HomeState
             };
-        }
-
-        public Contact GetContact()
-        {
-            return new Contact
-            {                
-                Name = Name,
-                MiddleName = MiddleName,
-                LastName = LastName,
-                Dob = Dob,
-                Dod = Dod,                
-                EmailAddress = EmailAddress,
-                MobileNumber = MobileNumber,
-                PhoneNumber = PhoneNumber,
-            };
-        }
+        }       
     }
 }
 

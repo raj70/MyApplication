@@ -11,7 +11,9 @@
 */
 using Rs.App.Core.Crm.ClientModel;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Infra.Repository;
+using Rs.App.Core.Crm.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,8 +79,9 @@ namespace Rs.App.Core.Crm.Infra.Services
             return contacts;
         }
 
-        public async Task AddedAsync(ContactClient contactClient)
+        public async Task<Result> AddedAsync(ContactClient contactClient)
         {
+            var result = new Result();
             await Task.Run(() =>
             {
                 var existed_title = _titleRepository.Exist(new Title() { Name = contactClient.Title });
@@ -99,7 +102,7 @@ namespace Rs.App.Core.Crm.Infra.Services
                     if (existed_deliveryAddress == null)
                     {
                         _addressRepository.Add(new_deliveryAddress);
-                        _addressRepository.Complete(); 
+                        _addressRepository.Complete();
                     }
                 }
 
@@ -120,9 +123,16 @@ namespace Rs.App.Core.Crm.Infra.Services
                 {
                     _contactRepository.Add(contact);
                 }
+                else
+                {
+                    result.Message = "Client exist, no new contact is created";
+                    result.IsError = true;
+                }
             });
 
             _contactRepository.Complete();
+
+            return result;
         }
 
 
@@ -140,5 +150,58 @@ namespace Rs.App.Core.Crm.Infra.Services
             }
             return delAddress;
         }
+
+        public async Task<Result> UpdateAsync(Guid id, ContactUpdate contact)
+        {
+            var result = await Task.Run(() =>
+            {
+                var result = new Result();
+                var existed_contact = _contactRepository.Get(id);
+                if (existed_contact == null)
+                {
+                    result.IsError = true;
+                    result.Message = "Contact does not exist for give Id";
+                    result.StatuCode = 400;
+                }
+                else
+                {
+                    var c = contact.GetContact();
+
+                    var title = _titleRepository.Find(x => x.Name == contact.Title).FirstOrDefault();
+
+                    if (title == null)
+                    {
+                        var titles = _titleRepository.GetAll();
+                        result.Message = $"Provided title is not supported: Supported titles: {string.Join(", ", titles)}";
+                        result.StatuCode = 400;                        
+                    }
+                    else
+                    {
+                        // c.Title = title;
+                        c.TitleId = title.Id;
+                        c.Id = id;
+                        try
+                        {
+                            _contactRepository.Update(id, c);
+                        }
+                        catch(CrmException ex)
+                        {
+                            result.IsError = true;
+                            result.Message = ex.Message;
+                            result.StatuCode = 400;
+                        }
+                        catch(Exception)
+                        {
+                            throw;
+                        }
+                    }
+                }
+
+                return result;
+            });
+
+            return result;
+        }
+
     }
 }

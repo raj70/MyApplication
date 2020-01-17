@@ -45,12 +45,12 @@ namespace Rs.App.Core.Crm.Infra.Repository
             var c = Find(x =>
                 x.LastName.ToLower() == contact.LastName.ToLower() &&
                 x.Name.ToLower() == contact.Name.ToLower() &&
-                x.MiddleName .ToLower() == contact.MiddleName.ToLower() &&
+                x.MiddleName.ToLower() == contact.MiddleName.ToLower() &&
                 x.MobileNumber.ToLower() == contact.MobileNumber.ToLower() &&
                 x.PhoneNumber.ToLower() == contact.PhoneNumber.ToLower() &&
                 x.Title.Id == contact.TitleId &&
-                //x.Dob.Value == contact.Dob.Value &&
-                x.EmailAddress.ToLower() == contact.EmailAddress.ToLower()                
+                x.Dob.Value.Date == contact.Dob.Value.Date &&
+                x.EmailAddress.ToLower() == contact.EmailAddress.ToLower()
             ).FirstOrDefault();
 
             return c;
@@ -83,5 +83,30 @@ namespace Rs.App.Core.Crm.Infra.Repository
                 .Take(pageSize);
             return db.ToList();
         }
+
+        public void Update(Guid id, Contact contact)
+        {
+            var existed_contact = Find(x => x.Id == id).FirstOrDefault();
+            if (existed_contact != null)
+            {
+                existed_contact.TitleId = contact.TitleId;
+                existed_contact.Name = contact.Name;
+                existed_contact.MiddleName = contact.MiddleName;
+                existed_contact.LastName = contact.LastName;
+                existed_contact.PhoneNumber = contact.PhoneNumber;
+                existed_contact.MobileNumber = contact.MobileNumber;
+                existed_contact.IsActive = contact.IsActive.Value;
+                existed_contact.Dob = contact.Dob;
+                existed_contact.Dod = contact.Dod;
+
+                this.DbContactContext.Entry(existed_contact).State = EntityState.Modified;
+                this.DbContactContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exceptions.CrmException("Contact does not exist");
+            }
+        }
+
     }
 }
