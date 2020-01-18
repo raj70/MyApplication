@@ -15,72 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Validation
 {
-    public static class ValidationUtil
-    {
-        public static bool IsSameAddress(ContactClient contact, string v)
-        {
-            return contact.IsDeliverSameAsHomeAddress;
-        }
-
-        public static bool IsCheckLength(ContactUpdate contact, string number)
-        {
-            // not empty
-            var mpn = !string.IsNullOrWhiteSpace(contact.MobileNumber);
-            var pn = !string.IsNullOrWhiteSpace(contact.PhoneNumber);
-
-            // if phone number or mobile number is not empty
-            var isOk = OnePhoneNumberIsRequired(contact, number);
-            if (isOk && mpn)
-            {
-                isOk = contact.MobileNumber.Length >= 7 && contact.MobileNumber.Length <= 16;
-            }
-
-            if (isOk && pn)
-            {
-                isOk = contact.PhoneNumber.Length >= 7 && contact.PhoneNumber.Length <= 16;
-            }
-
-            return isOk;
-        }
-
-        public static bool OnePhoneNumberIsRequired(ContactUpdate contact, string number)
-        {
-            var mpn = contact.MobileNumber;
-            var pn = contact.PhoneNumber;
-
-            var isEmpty = !string.IsNullOrWhiteSpace(mpn);
-
-            if (!isEmpty)
-            {
-                isEmpty = !string.IsNullOrWhiteSpace(pn);
-            }
-
-            return !string.IsNullOrWhiteSpace(mpn) || !string.IsNullOrWhiteSpace(pn);
-        }
-
-        public static bool IsValidNumber(ContactUpdate instance, string number)
-        {
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                return true;
-            }
-
-            var pn = number.Trim().Replace(" ", "").Replace("-", "");
-            long nu;
-            return long.TryParse(pn, out nu);
-        }
-
-        public static bool IsValidEmailAddress(string emailAddress)
-        {
-            return Regex.IsMatch(emailAddress, @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
-        }
-    }
-
     public class ContactClientModelValidator : AbstractValidator<ContactClient>
     {
         public ContactClientModelValidator()
@@ -154,41 +92,6 @@ namespace Rs.App.Core.Crm.Infra.Validation
             });
 
         }       
-    }
-
-    public class ContactUpdateModelValidator : AbstractValidator<ContactUpdate>
-    {
-        public ContactUpdateModelValidator()
-        {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("Contact Name is empty")
-                .MaximumLength(25).WithMessage("Name must be less or equal to 25 chars");
-            RuleFor(c => c.LastName)
-                .NotEmpty().WithMessage("Last Name is empty")
-                .MaximumLength(25).WithMessage("Last Name must be less or equal to 25 chars");
-
-
-            RuleFor(c => c.MobileNumber)
-                .Must(ValidationUtil.IsCheckLength).WithMessage("Please check mobile number")
-                .Must(ValidationUtil.IsValidNumber).WithMessage("Not a valid mobile number");
-
-            RuleFor(c => c.PhoneNumber)
-                .Must(ValidationUtil.IsCheckLength).WithMessage("Please check phone number")
-                .Must(ValidationUtil.IsValidNumber).WithMessage("Not a valid phone number");
-
-            RuleFor(c => c.PhoneNumber)
-                .Must(ValidationUtil.OnePhoneNumberIsRequired).WithMessage("Phone number or mobile number must be provided");
-
-            RuleFor(c => c.Dob)
-                .NotEmpty().WithMessage("Dob is required")
-                .LessThanOrEqualTo(DateTime.Now.AddYears(-18)).WithMessage("Age must be greater than 18");
-
-            // why people will use it
-            RuleFor(c => c.Dod).LessThan(DateTime.Now).WithMessage("Not able used future date (or today's date)");
-
-            RuleFor(c => c.EmailAddress)
-                .Must(ValidationUtil.IsValidEmailAddress).WithMessage("Not a valid email address");
-        }
     }
 }
 

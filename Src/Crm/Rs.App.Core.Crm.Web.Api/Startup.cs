@@ -38,7 +38,7 @@ namespace Rs.App.Core.Crm.Web.Api
                 .AddControllers()                
                 .AddFluentValidation(opt =>
                 {
-                    opt.RegisterValidatorsFromAssemblyContaining<ContactModelValidator>();
+                    opt.RegisterValidatorsFromAssemblyContaining<ContactClientModelValidator>();
                 });
 
             //filters:

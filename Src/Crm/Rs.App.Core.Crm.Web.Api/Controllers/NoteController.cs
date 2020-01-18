@@ -63,10 +63,10 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         }
 
         
-        [HttpPut("{noteId}", Name = "AddChildNote")]
-        public async Task<ActionResult> PutChildNote(Guid noteId, [FromBody] NoteUpdate value)
+        [HttpPut("{parentNoteId}", Name = "AddChildNote")]
+        public async Task<ActionResult> PutChildNote(Guid parentNoteId, [FromBody] NoteUpdate value)
         {
-            var result = await _noteService.AddChildNote(noteId, value);
+            var result = await _noteService.AddChildNote(parentNoteId, value);
             if (result.IsError)
             {
                 result.StatuCode = 400;
