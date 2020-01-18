@@ -21,9 +21,9 @@ using System.Threading.Tasks;
 namespace Rs.App.Core.Crm.Infra.Repository
 {
     /* Actually, IContactRepository is for DI and any extract works than CRUD */
-    public class ContactRepository : AbstractRepository<Contact>, IContactRepository
+    public sealed class ContactRepository : AbstractRepository<Contact>, IContactRepository
     {
-        protected ContactContext DbContactContext;
+        private readonly ContactContext DbContactContext;
         public ContactRepository(ContactContext dbContactContext) : base(dbContactContext)
         {
             DbContactContext = dbContactContext;

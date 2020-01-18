@@ -7,29 +7,35 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/12/2020 7:58:51 PM
+* Time: 1/18/2020 4:47:06 PM
 */
+using Rs.App.Core.Crm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Domain
+namespace Rs.App.Core.Crm.ClientModel
 {
-    public class Note
+    public class NoteAdd
     {
-        public Note()
+        public NoteAdd()
         {
+
         }
 
-        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid ContactId { get; set; }
         public string ShortNote { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedDate { get; set; } = DateTime.UtcNow;
-        public bool? IsDeleted { get; set; } = true;
 
-        public virtual Contact Contact { get; set; }
+        public virtual Note CreateNote()
+        {
+            return new Note
+            {
+                ContactId = ContactId,
+                ShortNote = ShortNote
+            };
+        }
     }
 }
+

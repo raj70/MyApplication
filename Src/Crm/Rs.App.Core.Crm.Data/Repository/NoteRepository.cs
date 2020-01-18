@@ -18,21 +18,38 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public class NoteRepository : AbstractRepository<Note>, INoteRepository
+    public sealed class NoteRepository : AbstractRepository<Note>, INoteRepository
     {
+        private readonly NoteContext noteContext;
         public NoteRepository(NoteContext dbContext) : base(dbContext)
         {
-
+            noteContext = dbContext;
         }
 
         public void Complete()
         {
-            _dbContext.SaveChanges();
+            noteContext.SaveChanges();
         }
 
         public async Task CompleteAsync()
         {
-            await _dbContext.SaveChangesAsync();
+            await noteContext.SaveChangesAsync();
+        }
+
+        public void Update(Guid noteId, Note note)
+        {
+            var exist_note = Find(x => x.Id == noteId).FirstOrDefault();
+            if(exist_note != null)
+            {
+                exist_note.ShortNote = note.ShortNote;
+                exist_note.UpdatedDate = note.UpdatedDate;
+                noteContext.Entry(exist_note).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                noteContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exceptions.CrmException("Note does not exist");
+            }
         }
     }
 }

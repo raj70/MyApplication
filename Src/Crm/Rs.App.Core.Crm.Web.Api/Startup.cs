@@ -17,6 +17,7 @@ using Rs.App.Core.Crm.Infra.Services;
 using Rs.App.Core.Crm.Infra.Validation;
 using Rs.App.Core.Crm.Web.Api.AppConfig;
 using Rs.App.Core.Crm.Web.Api.CustomMiddleware;
+using Rs.App.Core.Crm.Web.Api.Filters;
 
 namespace Rs.App.Core.Crm.Web.Api
 {
@@ -28,16 +29,20 @@ namespace Rs.App.Core.Crm.Web.Api
         }
 
         public IConfiguration Configuration { get; }
+        public ILogger Logger { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             services
-                .AddControllers()
+                .AddControllers()                
                 .AddFluentValidation(opt =>
                 {
                     opt.RegisterValidatorsFromAssemblyContaining<ContactModelValidator>();
                 });
+
+            //filters:
+            services.AddScoped<ActionResultFilter>();
 
             services.AddDbsAndServices(Configuration);
             services.AddOpenApiDocument();
@@ -58,9 +63,12 @@ namespace Rs.App.Core.Crm.Web.Api
             }
 
             app.UseGeneralExceptionHandler();
+            app.UseDebugLoggerHandler();
+
             app.UseRouting();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

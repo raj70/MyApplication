@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public class TitleRepository: AbstractRepository<Title>, ITitleRepository
+    public sealed class TitleRepository: AbstractRepository<Title>, ITitleRepository
     {
         public TitleRepository(TitleContext dbContext) : base(dbContext)
         {

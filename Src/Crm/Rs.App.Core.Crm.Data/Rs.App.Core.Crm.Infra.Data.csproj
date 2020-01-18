@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -19,6 +19,8 @@
     <Compile Remove="CrmMigrations\20200114120934_CrmRepo.Designer.cs" />
     <Compile Remove="CrmMigrations\20200115195215_CrmRepo.cs" />
     <Compile Remove="CrmMigrations\20200115195215_CrmRepo.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200118025558_CrmRepo_Update_again.cs" />
+    <Compile Remove="CrmMigrations\20200118025558_CrmRepo_Update_again.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

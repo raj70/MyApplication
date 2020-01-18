@@ -35,7 +35,7 @@ namespace Rs.App.Core.Crm.Domain
 
         public string MobileNumber { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-                
+
         public string EmailAddress { get; set; }
 
         //The 'bool' property 'IsActive' on entity type 'Contact' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'
@@ -55,6 +55,10 @@ namespace Rs.App.Core.Crm.Domain
         // not mapped
         public virtual Address DeliveryAddress { get; set; }
         public virtual Address HomeAddress { get; set; }
-        public virtual Title Title { get; set; }        
+        public virtual Title Title { get; set; }
+
+        // one contact can have more notes
+        public virtual ICollection<Note> Notes { get; set; }
+
     }
 }

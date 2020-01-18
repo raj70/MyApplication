@@ -135,7 +135,6 @@ namespace Rs.App.Core.Crm.Infra.Services
             return result;
         }
 
-
         /// <summary>
         /// return null if the Delivery Address same As Home Address
         /// </summary>
@@ -218,6 +217,7 @@ namespace Rs.App.Core.Crm.Infra.Services
                 }
                 else
                 {
+                    //TODO: will be a issue when note is deleted
                     _contactRepository.Remove(id);
                     _contactRepository.Complete();
                 }

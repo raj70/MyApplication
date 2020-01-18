@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Repository
 {
-    public class AddressRepository : AbstractRepository<Address>, IAddressRepository
+    public sealed class AddressRepository : AbstractRepository<Address>, IAddressRepository
     {
         private readonly AddressContext addressContext;
         public AddressRepository(AddressContext dbContext) : base(dbContext)
