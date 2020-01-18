@@ -62,7 +62,7 @@ namespace Rs.App.Core.Crm.Infra.Services
             var result = await Task.Run(() =>
             {
                 var result = new Result();
-
+                //TODO: we have child note(s), sql won't allow us to delete if the main note (first note(
                 _noteRepository.Remove(noteId);
                 _noteRepository.Complete();
                 return result;
