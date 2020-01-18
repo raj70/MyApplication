@@ -32,6 +32,7 @@ namespace Rs.App.Core.Crm.Infra.Configurations
 
             builder.Property(nameof(Note.IsDeleted)).HasColumnName("Active").HasDefaultValue(true);
 
+            
         }
     }
 }

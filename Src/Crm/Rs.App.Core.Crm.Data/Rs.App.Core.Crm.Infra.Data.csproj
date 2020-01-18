@@ -21,6 +21,8 @@
     <Compile Remove="CrmMigrations\20200115195215_CrmRepo.Designer.cs" />
     <Compile Remove="CrmMigrations\20200118025558_CrmRepo_Update_again.cs" />
     <Compile Remove="CrmMigrations\20200118025558_CrmRepo_Update_again.Designer.cs" />
+    <Compile Remove="CrmMigrations\20200118103519_CrmRepo_Update_AddChildNote.cs" />
+    <Compile Remove="CrmMigrations\20200118103519_CrmRepo_Update_AddChildNote.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

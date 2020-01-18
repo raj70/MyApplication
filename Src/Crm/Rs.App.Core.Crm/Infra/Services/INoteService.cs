@@ -24,6 +24,7 @@ namespace Rs.App.Core.Crm.Infra.Services
     {
         Task<IEnumerable<Note>> GetNotesAsync(Guid contactId);
         Task<Result> AddAsync(NoteAdd note);
+        Task<Result> AddChildNote(Guid noteId, NoteUpdate note);
         Task<Result> UpdateAsync(Guid noteId, NoteUpdate note);
         Task<Result> DeleteAsync(Guid noteId);
     }

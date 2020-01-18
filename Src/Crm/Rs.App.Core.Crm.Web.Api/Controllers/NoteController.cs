@@ -21,7 +21,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         {
             _noteService = noteService;
         }
-        // GET: api/Note/5
+
         [HttpGet("{contactId}", Name = "GetNotes")]
         public async Task<ActionResult<IEnumerable<Note>>> Get(Guid contactId)
         {
@@ -35,7 +35,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return Ok(notes);
         }
 
-        // POST: api/Note
+        
         [HttpPost(Name = "PostNote")]
         [ServiceFilter(typeof(ActionResultFilter))]
         public async Task<ActionResult> Post([FromBody] NoteAdd value)
@@ -49,7 +49,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return Ok(result);
         }
 
-        // PUT: api/Note/5
+        
         [HttpPut("{noteId}", Name = "UpdateNote")]
         public async Task<ActionResult> Put(Guid noteId, [FromBody] NoteUpdate value)
         {
@@ -62,7 +62,19 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return Ok(result);
         }
 
-        // DELETE: api/ApiWithActions/5
+        
+        [HttpPut("{noteId}", Name = "AddChildNote")]
+        public async Task<ActionResult> PutChildNote(Guid noteId, [FromBody] NoteUpdate value)
+        {
+            var result = await _noteService.AddChildNote(noteId, value);
+            if (result.IsError)
+            {
+                result.StatuCode = 400;
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+        
         [HttpDelete("{noteId}", Name = "DeleteNote")]
         public async Task<ActionResult> Delete(Guid noteId)
         {

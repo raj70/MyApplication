@@ -25,11 +25,13 @@ namespace Rs.App.Core.Crm.Domain
 
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid ContactId { get; set; }
+        public Guid? ParentNoteId { get; set; }
         public string ShortNote { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedDate { get; set; } = DateTime.UtcNow;
         public bool? IsDeleted { get; set; } = true;
 
+        public virtual Note ParentNote { get; set; }
         public virtual Contact Contact { get; set; }
     }
 }

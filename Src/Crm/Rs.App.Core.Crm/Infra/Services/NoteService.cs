@@ -74,9 +74,56 @@ namespace Rs.App.Core.Crm.Infra.Services
         {
             var notes = await Task.Run(() =>
             {
-                return _noteRepository.Find(x => x.ContactId == contactId);
+                return _noteRepository.Find(x => x.ContactId == contactId && x.ParentNoteId == null);
             });
             return notes;
+        }
+
+        public async Task<Result> AddChildNote(Guid noteId, NoteUpdate note)
+        {
+            var result = await Task.Run(() =>
+            {
+                var result = new Result();
+
+                var existed_note = _noteRepository.Find(x => x.Id == noteId).FirstOrDefault();
+                if (existed_note == null)
+                {
+                    result.IsError = true;
+                    result.Message = "Note does not exist";
+                    result.StatuCode = 400;
+                }
+                else
+                {
+                    var c = note.CreateNote();
+
+                    var new_note = new Note()
+                    {
+                        ContactId = existed_note.ContactId,
+                        CreatedDate = existed_note.CreatedDate,
+                        UpdatedDate = c.UpdatedDate,
+                        ShortNote = c.ShortNote,
+                        ParentNoteId = existed_note.Id
+                    };
+
+                    try
+                    {
+                        _noteRepository.Add(new_note);
+                    }
+                    catch (CrmException ex)
+                    {
+                        result.IsError = true;
+                        result.Message = ex.Message;
+                        result.StatuCode = 400;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                return result;
+            });
+
+            return result;
         }
 
         public async Task<Result> UpdateAsync(Guid noteId, NoteUpdate note)
@@ -94,7 +141,8 @@ namespace Rs.App.Core.Crm.Infra.Services
                 }
                 else
                 {
-                    var c = note.CreateNote();                    
+                    var c = note.CreateNote();
+
                     existed_note.ShortNote = c.ShortNote;
                     existed_note.UpdatedDate = c.UpdatedDate;
 
