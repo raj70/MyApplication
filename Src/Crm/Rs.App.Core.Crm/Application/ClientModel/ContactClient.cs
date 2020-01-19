@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.ClientModel
+namespace Rs.App.Core.Crm.Application.ClientModel
 {
     public sealed class ContactClient : ClientModel.ContactUpdate
     {

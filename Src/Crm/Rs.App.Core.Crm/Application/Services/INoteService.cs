@@ -6,11 +6,11 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 6:42:30 PM
+* Time: 1/18/2020 4:45:22 PM
 * 
 * [%clrversion%]
 */
-using Rs.App.Core.Crm.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Messages;
 using System;
@@ -18,15 +18,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Infra.Services
+namespace Rs.App.Core.Crm.Application.Services
 {
-    public interface IContactService
+    public interface INoteService
     {
-        Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10);
-        Task<IEnumerable<Contact>> GetAllAsync();
-        Task<Contact> GetAsync(Guid id);
-        Task<Result> AddedAsync(ContactClient contactClient);
-        Task<Result> UpdateAsync(Guid id, ContactUpdate contact);
-        Task<Result> DeleteAsync(Guid id);
+        Task<IEnumerable<Note>> GetNotesAsync(Guid contactId);
+        Task<Result> AddAsync(NoteAdd note);
+        Task<Result> AddChildNote(Guid noteId, NoteUpdate note);
+        Task<Result> UpdateAsync(Guid noteId, NoteUpdate note);
+        Task<Result> DeleteAsync(Guid noteId);
     }
 }

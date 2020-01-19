@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Infra.Services
+namespace Rs.App.Core.Crm.Application.Services
 {
     public interface ITitleService
     {

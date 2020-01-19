@@ -11,24 +11,29 @@
 */
 using Rs.App.Core.Crm.Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.ClientModel
+namespace Rs.App.Core.Crm.Application.ClientModel
 {
-    public class NoteUpdate : NoteAdd
+    public class NoteAdd
     {
-        public NoteUpdate()
+        public NoteAdd()
         {
 
         }
-        public DateTime UpdatedDate { get; internal set; } = DateTime.UtcNow;
 
-        public override Note CreateNote()
+        public Guid ContactId { get; set; }
+        public string ShortNote { get; set; }
+
+        public virtual Note CreateNote()
         {
             return new Note
             {
                 ContactId = ContactId,
-                ShortNote = ShortNote,
-                UpdatedDate = UpdatedDate
+                ShortNote = ShortNote
             };
         }
     }

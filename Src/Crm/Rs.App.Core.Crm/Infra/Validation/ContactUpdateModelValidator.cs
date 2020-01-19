@@ -10,7 +10,7 @@
 * Time: 1/16/2020 4:20:49 PM
 */
 using FluentValidation;
-using Rs.App.Core.Crm.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
 using System;
 
 namespace Rs.App.Core.Crm.Infra.Validation

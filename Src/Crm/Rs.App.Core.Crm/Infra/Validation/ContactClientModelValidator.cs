@@ -10,7 +10,8 @@
 * Time: 1/16/2020 4:20:49 PM
 */
 using FluentValidation;
-using Rs.App.Core.Crm.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Rs.App.Core.Crm.Infra.Repository;
-using Rs.App.Core.Crm.Infra.Services;
+using Rs.App.Core.Crm.Application.Services;
 using Rs.App.Core.Crm.Infra.Validation;
 using Rs.App.Core.Crm.Web.Api.AppConfig;
 using Rs.App.Core.Crm.Web.Api.CustomMiddleware;

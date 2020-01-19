@@ -9,7 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/14/2020 6:39:17 PM
 */
-using Rs.App.Core.Crm.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Infra.Repository;
@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Crm.Infra.Services
+namespace Rs.App.Core.Crm.Application.Services
 {
     public class ContactService : IContactService
     {

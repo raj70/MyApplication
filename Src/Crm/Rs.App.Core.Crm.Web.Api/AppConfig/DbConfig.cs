@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rs.App.Core.Crm.Infra.Repository;
-using Rs.App.Core.Crm.Infra.Services;
+using Rs.App.Core.Crm.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

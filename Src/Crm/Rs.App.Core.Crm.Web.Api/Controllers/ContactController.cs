@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Rs.App.Core.Crm.ClientModel;
+using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Exceptions;
-using Rs.App.Core.Crm.Infra.Services;
+using Rs.App.Core.Crm.Application.Services;
 
 namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
