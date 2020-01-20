@@ -29,7 +29,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
             DbContactContext = dbContactContext;
         }
 
-
         public void Complete()
         {
             this.DbContactContext.SaveChanges();
@@ -38,22 +37,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
         public async Task CompleteAsync()
         {
             await this.DbContactContext.SaveChangesAsync();
-        }
-
-        public Contact Exist(Contact contact)
-        {
-            var c = Find(x =>
-                x.LastName.ToLower() == contact.LastName.ToLower() &&
-                x.Name.ToLower() == contact.Name.ToLower() &&
-                x.MiddleName.ToLower() == contact.MiddleName.ToLower() &&
-                x.MobileNumber.ToLower() == contact.MobileNumber.ToLower() &&
-                x.PhoneNumber.ToLower() == contact.PhoneNumber.ToLower() &&
-                x.Title.Id == contact.TitleId &&
-                x.Dob.Value.Date == contact.Dob.Value.Date &&
-                x.EmailAddress.ToLower() == contact.EmailAddress.ToLower()
-            ).FirstOrDefault();
-
-            return c;
         }
 
         public override Contact Get(Guid id)

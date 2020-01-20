@@ -6,20 +6,19 @@
 * 
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/14/2020 6:30:11 PM
+* Time: 1/20/2020 8:16:23 PM
 * 
 * [%clrversion%]
 */
-using Rs.App.Core.Crm.Domain;
-using Rs.App.Core.Crm.Domain.Spec;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
-namespace Rs.App.Core.Crm.Infra.Repository
+namespace Rs.App.Core.Crm.Domain.Spec
 {
-    public interface IAddressRepository : IRepository<Address>, IURepository
+    public interface ISpecification<T> where T : class
     {
-        IEnumerable<Address> AllNotUsed();
+        Expression<Func<T, bool>> SpecExpression();
     }
 }

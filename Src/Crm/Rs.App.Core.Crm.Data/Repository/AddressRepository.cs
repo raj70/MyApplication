@@ -11,6 +11,7 @@
 */
 using Microsoft.EntityFrameworkCore;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Domain.Spec;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,21 +47,6 @@ namespace Rs.App.Core.Crm.Infra.Repository
         public async Task CompleteAsync()
         {
             await _dbContext.SaveChangesAsync();
-        }
-
-        public Address Exist(Address address)
-        {
-            var a = Find(x =>
-                   x.Line1.ToLower() == address.Line1.ToLower() &&
-                   (x.Line2 ?? "").ToLower() == address.Line2.ToLower() &&
-                   (x.Line3 ?? "").ToLower() == address.Line3.ToLower() &&
-                   x.City.ToLower() == address.City.ToLower() &&
-                   x.State.ToLower() == address.State.ToLower() &&
-                   x.Country.ToLower() == address.Country.ToLower() &&
-                   x.PostalCode.ToLower() == address.PostalCode.ToLower()
-                ).FirstOrDefault();
-
-            return a;
         }
     }
 }

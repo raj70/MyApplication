@@ -11,6 +11,7 @@
 */
 using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
+using Rs.App.Core.Crm.Domain.Spec;
 using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Infra.Repository;
 using Rs.App.Core.Crm.Messages;
@@ -92,13 +93,18 @@ namespace Rs.App.Core.Crm.Application.Services
                 };
 
                 Address new_address = contactClient.GetAddress();
-                var existed_address = _addressRepository.Exist(new_address);
+                var existed_address = _addressRepository
+                                      .Find(new AddressExistSpecification(new_address).SpecExpression())
+                                      .FirstOrDefault();
 
                 Address new_deliveryAddress = contactClient.GetDeliveryAdress();
                 Address existed_deliveryAddress = null;
                 if (!contactClient.IsDeliverSameAsHomeAddress)
                 {
-                    existed_deliveryAddress = _addressRepository.Exist(new_deliveryAddress);
+                    existed_deliveryAddress = _addressRepository
+                                                .Find(new AddressExistSpecification(new_deliveryAddress).SpecExpression())
+                                                .FirstOrDefault();
+
                     if (existed_deliveryAddress == null)
                     {
                         _addressRepository.Add(new_deliveryAddress);
@@ -118,7 +124,7 @@ namespace Rs.App.Core.Crm.Application.Services
                                             : (existed_deliveryAddress != null ? existed_deliveryAddress.Id : new_deliveryAddress.Id);
 
 
-                var existed_contact = _contactRepository.Exist(contact);
+                var existed_contact = _contactRepository.Find(new ContactExistSpecification(contact).SpecExpression());
                 if (existed_contact == null)
                 {
                     _contactRepository.Add(contact);
@@ -166,7 +172,7 @@ namespace Rs.App.Core.Crm.Application.Services
                 {
                     var c = contact.GetContact();
 
-                    var title = _titleRepository.Find(x => x.Name == contact.Title).FirstOrDefault();
+                    var title = _titleRepository.Find(new TitleExistSpecification(contact.Title).SpecExpression()).FirstOrDefault();
 
                     if (title == null)
                     {
