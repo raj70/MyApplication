@@ -51,10 +51,11 @@ namespace Rs.App.Core.Crm.Web.Api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
-            {
+            {                
                 app.UseDeveloperExceptionPage();
             }
             else
