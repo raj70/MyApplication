@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /Src/Crm/Rs.App.Core.Crm.Data/CrmMigrations
 /Src/Crm/Rs.App.Core.Crm/Class1.cs
+/Src/Pm/Rs.App.Core.Pm.Infra.Data/PmMigrations
