@@ -19,12 +19,35 @@ namespace Rs.App.Core.Pm.Web.Api.Controllers
         {
             _productService = productService;
         }
-        //[HttpGet(Name ="GetProducts")]
+
+        [HttpGet(Name = "GetProducts")]
+        public async Task<ActionResult> GetAll()
+        {
+            var products = await _productService.GetAllAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet("/GetStock/{productId}", Name = "GetStock")]
+        public async Task<ActionResult> GetStock(Guid productId)
+        {
+            var products = await _productService.GetStock(productId);
+
+            return Ok(products);
+        }
+
+        [HttpGet("{productId}", Name = "GetProduct")]
+        public async Task<ActionResult> GetProduct(Guid productId)
+        {
+            var products = await _productService.Get(productId);
+
+            return Ok(products);
+        }
 
         [HttpPost(Name = "AddProduct")]
-        public async Task<ActionResult> Post(ProductAddDto productDto)
+        public async Task<ActionResult> Post([FromBody]ProductAddDto productDto)
         {
-           var result = await _productService.AddAsync(productDto);
+            var result = await _productService.AddAsync(productDto);
             if (result.IsError)
             {
                 return BadRequest(result);

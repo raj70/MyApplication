@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/21/2020 6:48:44 PM
 */
+using Rs.App.Core.Pm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,14 @@ namespace Rs.App.Core.Pm.Application.Dtos
         }
 
         public Guid ProductId { get; set; }
+
+        public Stock CreateStock(Guid id)
+        {
+            return new Stock()
+            {
+                ProductId = id
+            };
+        }
     }
 }
 

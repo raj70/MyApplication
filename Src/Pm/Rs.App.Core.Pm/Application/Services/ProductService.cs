@@ -41,7 +41,6 @@ namespace Rs.App.Core.Pm.Application.Services
             _stockRepository = stockRepository;
         }
 
-
         public async Task<Result> AddAsync(Dtos.ProductAddDto productDto)
         {
             var result = await Task.Run(() =>
@@ -50,8 +49,8 @@ namespace Rs.App.Core.Pm.Application.Services
 
                 // add product
                 var new_product = productDto.CreateProduct();
-                var exist_Product_Spec = new ProductExistSpecification(new_product);
                 var new_stock = productDto.CreateStock(new_product.Id);
+                var exist_Product_Spec = new ProductSameExistSpecification(new_product);
 
                 // is specification satisfied?
                 var isStaisfy = exist_Product_Spec.IsSatisfiedBy(new_product);
@@ -108,11 +107,78 @@ namespace Rs.App.Core.Pm.Application.Services
             return result;
         }
 
+        public async Task<Product> Get(Guid productId)
+        {
+            var product = await Task.Run(() =>
+            {
+                var product = _productRepository.Get(productId);
+                return product;
+            });
+
+            return product;
+        }
+
+        public async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            var products = await Task.Run(() =>
+            {
+                var products = _productRepository.GetAll();
+
+                return products;
+            });
+
+            return products;
+        }
+
+        public async Task<Stock> GetStock(Guid productId)
+        {
+            var stock = await Task.Run(() => {
+                var stockSpecification = new StockExistSpecification(new Stock() { ProductId = productId });
+                var stock = _stockRepository.Find(stockSpecification).FirstOrDefault();
+
+                return stock;
+
+            });
+
+            return stock;
+        }
+
         public async Task<Result> RemoveAsync(ProductRemoveDto productDto)
         {
             var result = await Task.Run(() =>
             {
                 var result = new Result();
+                var stock_Spec = new StockExistSpecification(productDto.CreateStock(productDto.ProductId));
+                var exist_stock = _stockRepository.Find(stock_Spec).FirstOrDefault();
+
+                if (exist_stock != null)
+                {
+                    _stockRepository.Remove(exist_stock.Id);
+                    _stockRepository.Complete();
+
+                    var exist_Product_Spec = new ProductExistSpecification(productDto.ProductId);
+                    var exist_Product = _productRepository.Find(exist_Product_Spec);
+
+                    if (exist_Product != null)
+                    {
+                        _productRepository.Remove(productDto.ProductId);
+                        _productRepository.Complete();
+                    }
+                    else
+                    {
+                        result.IsError = true;
+                        result.Message = "Product does not exist";
+                        result.StatuCode = 400;
+                    }
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Message = "Product does not exist";
+                    result.StatuCode = 400;
+                }
+
+               
 
                 return result;
             });

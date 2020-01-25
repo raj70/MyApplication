@@ -11,6 +11,7 @@
 * [%clrversion%]
 */
 using Rs.App.Core.Pm.Application.Dtos;
+using Rs.App.Core.Pm.Domain;
 using Rs.App.Core.Pm.Infra.Domain;
 using System;
 using System.Collections.Generic;
@@ -23,5 +24,9 @@ namespace Rs.App.Core.Pm.Application.Services
     {
         Task<Result> AddAsync(ProductAddDto productDto);
         Task<Result> RemoveAsync(ProductRemoveDto productDto);
+        Task<IEnumerable<Product>> GetAllAsync();
+
+        Task<Stock> GetStock(Guid productId);
+        Task<Product> Get(Guid productId);
     }
 }

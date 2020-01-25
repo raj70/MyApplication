@@ -7,9 +7,10 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/25/2020 2:39:56 PM
+* Time: 1/21/2020 4:51:05 PM
 */
 using Rs.App.Core.Pm.Domain;
+using Rs.App.Core.Pm.Infra.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,24 +20,28 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Spec
 {
-    public class ProductExistSpecification : ISpecification<Product>
+    public class ProductSameExistSpecification : ISpecification<Product>
     {
-        private readonly Guid _productId;
+        private readonly Product _product;
 
-        public ProductExistSpecification(Guid id)
+        public ProductSameExistSpecification(Product product)
         {
-            _productId = id;
+            _product = product;
         }
 
         public bool IsSatisfiedBy(Product model)
         {
+            // now this object doing two things; actually validation, we don't want to validate here; we want to valid from FluentValidataion
+            // Expression<Func<Product, bool>> d = x => (x.Cost > 0)  && (x.IsActive.Value == true) && !string.IsNullOrWhiteSpace(x.Description) && !string.IsNullOrWhiteSpace(x.Name);
             return ToExpression().Compile().Invoke(model);
         }
 
         public Expression<Func<Product, bool>> ToExpression()
         {
             return x =>
-                       _productId == x.Id;
+                       x.Name == _product.Name &&
+                       x.Description == _product.Description &&
+                       x.IsActive == true;
         }
     }
 }
