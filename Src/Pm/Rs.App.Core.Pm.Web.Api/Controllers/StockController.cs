@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Application.Services;
 using Rs.App.Core.Pm.Infra.Domain;
 using Rs.App.Core.Pm.Infra.Repository;
@@ -38,6 +39,14 @@ namespace Rs.App.Core.Pm.Web.Api.Controllers
             }
 
             return Ok(stock);
+        }
+
+        [HttpPut("{id}", Name = "ChangeQuantity")]
+        public async Task<ActionResult> Put(Guid id, [FromBody] StockUpdateDto stockReduce)
+        {
+            var result = await _stockService.UpdateAsync(id, stockReduce);
+
+            return Ok(result);
         }
     }
 }

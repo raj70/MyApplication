@@ -7,20 +7,27 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/21/2020 4:54:27 PM
+* Time: 1/26/2020 11:16:58 PM
 */
-using Rs.App.Core.Pm.Domain;
+using FluentValidation;
+using Rs.App.Core.Pm.Application.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Pm.Events
+namespace Rs.App.Core.Pm.Infra.Validatation
 {
-    public interface IDomainEvent<TDto> where TDto : class
+    public class ProductRemoveClientValidator : AbstractValidator<ProductRemoveDto>
     {
-        void Raise(AbstractModel model);
-    }   
+        public ProductRemoveClientValidator()
+        {
+            RuleFor(x => x.ProductId)
+                .Must(x => x != Guid.Empty)
+                .WithMessage("ProductId cannot be zero");
+
+        }
+    }
 }
 

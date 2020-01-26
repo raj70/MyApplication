@@ -27,14 +27,14 @@ namespace Rs.App.Core.Pm.Web.Api.Controllers
             var products = await _productService.GetAllAsync();
 
             return Ok(products);
-        }       
+        }
 
         [HttpGet("{productId}", Name = "GetProduct")]
         public async Task<ActionResult> GetProduct(Guid productId)
         {
             var product = await _productService.GetAsync(productId);
 
-            if(product == null)
+            if (product == null)
             {
                 var result = new Result()
                 {

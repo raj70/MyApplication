@@ -10,6 +10,7 @@
 * Time: 1/22/2020 9:50:08 PM
 */
 using Rs.App.Core.Pm.Domain;
+using Rs.App.Core.Pm.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,25 @@ namespace Rs.App.Core.Pm.Infra.Repository
         public void Transacation()
         {
             _dbContext.Database.BeginTransaction();
+        }
+
+        public void Update(Guid id, Stock existStock)
+        {
+            var eStock = _productContext.Stocks.Where(x => x.Id == id).FirstOrDefault();
+            if(eStock == null)
+            {
+                eStock.MinQuantity = existStock.MinQuantity;
+                eStock.ModifiedDated = existStock.ModifiedDated;
+                eStock.ProductId = existStock.ProductId;
+                eStock.Quantity = existStock.Quantity;
+
+                _productContext.Entry(eStock).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _productContext.SaveChanges();
+            }
+            else
+            {
+                throw new PmException("Stock does not exist");
+            }
         }
     }
 }

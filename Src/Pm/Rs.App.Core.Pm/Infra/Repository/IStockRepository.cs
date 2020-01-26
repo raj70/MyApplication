@@ -20,6 +20,7 @@ namespace Rs.App.Core.Pm.Infra.Repository
 {
     public interface IStockRepository : IRepository<Stock>, IURepository
     {
+        void Update(Guid id, Stock existStock);
     }
 }
 

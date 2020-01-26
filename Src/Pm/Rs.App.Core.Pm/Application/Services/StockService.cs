@@ -9,7 +9,10 @@
 * Machine: RAJDEVMAC
 * Time: 1/26/2020 8:12:09 PM
 */
+using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Domain;
+using Rs.App.Core.Pm.Exceptions;
+using Rs.App.Core.Pm.Infra.Domain;
 using Rs.App.Core.Pm.Infra.Repository;
 using Rs.App.Core.Pm.Spec;
 using System;
@@ -44,6 +47,39 @@ namespace Rs.App.Core.Pm.Application.Services
             var stock = _stockRepository.Find(stockSpecification).FirstOrDefault();
 
             return stock;
+        }
+
+        public async Task<Result> UpdateAsync(Guid id, StockUpdateDto stockReduce)
+        {
+            var result = await Task.Run(() => {
+                var result = new Result();
+
+                var existStock = _stockRepository.Get(id);
+                if(existStock != null)
+                {
+                    try
+                    {
+                        existStock = stockReduce.Update(existStock);
+                        _stockRepository.Update(id, existStock);
+                    }
+                    catch(PmException ex)
+                    {
+                        result.IsError = true;
+                        result.Message = ex.Message;
+                        result.StatuCode = 500;
+                    }
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Message = "Stock does not exist for give Id";
+                    result.StatuCode = 400;
+                }
+
+                return result;
+            });
+
+            return result;
         }
     }
 }

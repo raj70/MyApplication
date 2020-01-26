@@ -10,7 +10,9 @@
 * 
 * [%clrversion%]
 */
+using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Domain;
+using Rs.App.Core.Pm.Infra.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,5 +24,6 @@ namespace Rs.App.Core.Pm.Application.Services
     {
         Task<Stock> GetStockAsync(Guid productId);
         Stock GetStock(Guid productId);
+        Task<Result> UpdateAsync(Guid id, StockUpdateDto stockReduce);
     }
 }

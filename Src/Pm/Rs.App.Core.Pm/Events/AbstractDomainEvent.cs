@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Events
 {
-    public class AbstractDomainEvent<T> : IDomainEvent<T> where T : class
+    public class AbstractDomainEvent<TDto> : IDomainEvent<TDto> where TDto : class
     {
         protected IAuditRepository _auditRepository;
 
@@ -34,9 +34,9 @@ namespace Rs.App.Core.Pm.Events
             _auditRepository.Add(model.ToString());
         }
 
-        public static IDomainEvent<T> Create(IServiceProvider serviceProvider)
+        public static IDomainEvent<TDto> Create(IServiceProvider serviceProvider)
         {
-            return serviceProvider.GetRequiredService<IDomainEvent<T>>();
+            return serviceProvider.GetRequiredService<IDomainEvent<TDto>>();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Application.Services;
 using Rs.App.Core.Pm.Events;
 using Rs.App.Core.Pm.Infra.Repository;
+using Rs.App.Core.Pm.Infra.Validatation;
 
 namespace Rs.App.Core.Pm.Web.Api
 {
@@ -29,7 +31,12 @@ namespace Rs.App.Core.Pm.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation(opt =>
+            {
+                opt.RegisterValidatorsFromAssemblyContaining<ProductAddClientValidator>();
+            }); ;
 
             services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
             services.AddDbContext<AuditContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
