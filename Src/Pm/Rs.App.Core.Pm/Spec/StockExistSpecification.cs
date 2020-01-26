@@ -38,6 +38,12 @@ namespace Rs.App.Core.Pm.Spec
             return x =>
                        x.ProductId == _stock.ProductId;
         }
+
+
+        public static StockExistSpecification Create(Guid productId)
+        {
+            return new StockExistSpecification(new Stock() { ProductId = productId });
+        }
     }
 }
 

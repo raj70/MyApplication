@@ -11,6 +11,7 @@
 */
 using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Domain;
+using Rs.App.Core.Pm.Infra.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,10 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Events
 {
-    public class ProductRemovedEvent 
+    public class ProductRemovedEvent : AbstractDomainEvent<ProductRemoveDto>
     {
-        public ProductRemovedEvent()
+        public ProductRemovedEvent(IAuditRepository auditRepository) : base(auditRepository)
         {
-
         }
     }
 }

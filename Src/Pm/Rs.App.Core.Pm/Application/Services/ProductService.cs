@@ -28,16 +28,14 @@ namespace Rs.App.Core.Pm.Application.Services
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IProductRepository _productRepository;
-        private readonly IAuditRepository _auditRepository;
         private readonly IStockRepository _stockRepository;
 
-        public ProductService(IServiceProvider serviceProvider, IProductRepository productRepository,
-            IAuditRepository auditRepository,
+        public ProductService(IServiceProvider serviceProvider,
+            IProductRepository productRepository,
             IStockRepository stockRepository)
         {
             _serviceProvider = serviceProvider;
             _productRepository = productRepository;
-            _auditRepository = auditRepository;
             _stockRepository = stockRepository;
         }
 
@@ -62,7 +60,7 @@ namespace Rs.App.Core.Pm.Application.Services
                         _productRepository.Add(new_product);
                         _productRepository.Complete();
 
-                        var add_product_event = _serviceProvider.GetRequiredService<IDomainEvent<ProductAddDto>>();
+                        var add_product_event = AbstractDomainEvent<ProductAddDto>.Create(_serviceProvider);
                         add_product_event.Raise(new_product);
                     }
                     else
@@ -88,7 +86,7 @@ namespace Rs.App.Core.Pm.Application.Services
                             _stockRepository.Add(new_stock);
                             _stockRepository.Complete();
 
-                            var add_stock_event = _serviceProvider.GetRequiredService<IDomainEvent<StockAddDto>>();
+                            var add_stock_event = AbstractDomainEvent<StockAddDto>.Create(_serviceProvider);
                             add_stock_event.Raise(new_stock);
                         }
                         else
@@ -107,7 +105,52 @@ namespace Rs.App.Core.Pm.Application.Services
             return result;
         }
 
-        public async Task<Product> Get(Guid productId)
+        public async Task<Result> DeleteAsync(Guid id)
+        {
+            var result = await Task.Run(() =>
+            {
+                var result = new Result();
+
+                var exist_product = _productRepository.Get(id);
+                if (exist_product != null)
+                {
+                    var stockSpec = StockExistSpecification.Create(id);
+                    var exist_stock = _stockRepository.Find(stockSpec).FirstOrDefault();
+
+                    if (exist_stock != null)
+                    {
+                        _stockRepository.Remove(exist_stock.Id);
+                        _stockRepository.Complete();
+
+                        var stockRemovedEvent = AbstractDomainEvent<StockRemoveDto>.Create(_serviceProvider);
+                        stockRemovedEvent.Raise(exist_stock);
+
+                        _productRepository.Remove(id);
+                        _productRepository.Complete();
+
+                        var prodRemovedEvent = AbstractDomainEvent<ProductRemoveDto>.Create(_serviceProvider);
+                        prodRemovedEvent.Raise(exist_product);
+                    }
+                    else
+                    {
+                        result.IsError = true;
+                        result.Message = "Stock not found";
+                        result.StatuCode = 400;
+                    }
+                }
+                else
+                {
+                    result.IsError = true;
+                    result.Message = "Product not found";
+                    result.StatuCode = 400;
+                }
+                return result;
+            });
+
+            return result;
+        }
+
+        public async Task<Product> GetAsync(Guid productId)
         {
             var product = await Task.Run(() =>
             {
@@ -128,19 +171,6 @@ namespace Rs.App.Core.Pm.Application.Services
             });
 
             return products;
-        }
-
-        public async Task<Stock> GetStock(Guid productId)
-        {
-            var stock = await Task.Run(() => {
-                var stockSpecification = new StockExistSpecification(new Stock() { ProductId = productId });
-                var stock = _stockRepository.Find(stockSpecification).FirstOrDefault();
-
-                return stock;
-
-            });
-
-            return stock;
         }
 
         public async Task<Result> RemoveAsync(ProductRemoveDto productDto)
@@ -178,7 +208,7 @@ namespace Rs.App.Core.Pm.Application.Services
                     result.StatuCode = 400;
                 }
 
-               
+
 
                 return result;
             });

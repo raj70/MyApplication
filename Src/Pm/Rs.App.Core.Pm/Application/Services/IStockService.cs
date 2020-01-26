@@ -4,27 +4,23 @@
 * part, in any form or by any means, electronic, mechanical or otherwise
 * is published without the prior written consent of the copyright owner.
 * 
-* [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/21/2020 4:54:51 PM
+* Time: 1/26/2020 8:09:32 PM
+* 
+* [%clrversion%]
 */
-using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Domain;
-using Rs.App.Core.Pm.Infra.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Pm.Events
+namespace Rs.App.Core.Pm.Application.Services
 {
-    public class ProductNewAddedEvent : AbstractDomainEvent<ProductAddDto>
+    public interface IStockService
     {
-        public ProductNewAddedEvent(IAuditRepository auditRepository) : base(auditRepository)
-        {
-        }
+        Task<Stock> GetStockAsync(Guid productId);
+        Stock GetStock(Guid productId);
     }
 }
-

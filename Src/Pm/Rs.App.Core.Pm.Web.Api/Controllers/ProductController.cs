@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Application.Services;
+using Rs.App.Core.Pm.Infra.Domain;
 
 namespace Rs.App.Core.Pm.Web.Api.Controllers
 {
@@ -26,28 +27,44 @@ namespace Rs.App.Core.Pm.Web.Api.Controllers
             var products = await _productService.GetAllAsync();
 
             return Ok(products);
-        }
-
-        [HttpGet("/GetStock/{productId}", Name = "GetStock")]
-        public async Task<ActionResult> GetStock(Guid productId)
-        {
-            var products = await _productService.GetStock(productId);
-
-            return Ok(products);
-        }
+        }       
 
         [HttpGet("{productId}", Name = "GetProduct")]
         public async Task<ActionResult> GetProduct(Guid productId)
         {
-            var products = await _productService.Get(productId);
+            var product = await _productService.GetAsync(productId);
 
-            return Ok(products);
+            if(product == null)
+            {
+                var result = new Result()
+                {
+                    IsError = true,
+                    Message = "Product not found",
+                    StatuCode = 400
+                };
+                return BadRequest(result);
+            }
+
+            return Ok(product);
         }
 
         [HttpPost(Name = "AddProduct")]
         public async Task<ActionResult> Post([FromBody]ProductAddDto productDto)
         {
             var result = await _productService.AddAsync(productDto);
+            if (result.IsError)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpDelete(Name = "DeleteProduct")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var result = await _productService.DeleteAsync(id);
+
             if (result.IsError)
             {
                 return BadRequest(result);

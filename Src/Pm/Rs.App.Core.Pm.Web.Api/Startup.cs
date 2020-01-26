@@ -42,6 +42,8 @@ namespace Rs.App.Core.Pm.Web.Api
             // Events 
             services.AddScoped<IDomainEvent<ProductAddDto>, ProductNewAddedEvent>();
             services.AddScoped<IDomainEvent<StockAddDto>, ProductStockAddedEvent>();
+            services.AddScoped<IDomainEvent<StockRemoveDto>, ProductStockRemovedEvent>();
+            services.AddScoped<IDomainEvent<ProductRemoveDto>, ProductRemovedEvent>();
 
             services.AddOpenApiDocument();
         }

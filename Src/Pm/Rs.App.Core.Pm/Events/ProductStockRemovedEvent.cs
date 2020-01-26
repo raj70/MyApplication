@@ -7,7 +7,7 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/21/2020 4:54:51 PM
+* Time: 1/26/2020 8:29:06 PM
 */
 using Rs.App.Core.Pm.Application.Dtos;
 using Rs.App.Core.Pm.Domain;
@@ -20,9 +20,9 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Events
 {
-    public class ProductNewAddedEvent : AbstractDomainEvent<ProductAddDto>
+    public class ProductStockRemovedEvent : AbstractDomainEvent<StockRemoveDto>
     {
-        public ProductNewAddedEvent(IAuditRepository auditRepository) : base(auditRepository)
+        public ProductStockRemovedEvent(IAuditRepository auditRepository) : base(auditRepository)
         {
         }
     }

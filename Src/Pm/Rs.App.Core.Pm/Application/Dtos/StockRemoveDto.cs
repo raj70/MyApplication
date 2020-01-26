@@ -7,24 +7,24 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 1/21/2020 4:54:51 PM
+* Time: 1/26/2020 8:26:40 PM
 */
-using Rs.App.Core.Pm.Application.Dtos;
-using Rs.App.Core.Pm.Domain;
-using Rs.App.Core.Pm.Infra.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Pm.Events
+namespace Rs.App.Core.Pm.Application.Dtos
 {
-    public class ProductNewAddedEvent : AbstractDomainEvent<ProductAddDto>
+    public class StockRemoveDto
     {
-        public ProductNewAddedEvent(IAuditRepository auditRepository) : base(auditRepository)
+        public StockRemoveDto()
         {
+
         }
+
+        public Guid ProductId { get; set; }
     }
 }
 

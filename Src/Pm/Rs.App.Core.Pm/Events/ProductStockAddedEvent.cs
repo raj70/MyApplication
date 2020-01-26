@@ -20,18 +20,10 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Events
 {
-    public class ProductStockAddedEvent : IDomainEvent<StockAddDto>
+    public class ProductStockAddedEvent : AbstractDomainEvent<StockAddDto>
     {
-        private readonly IAuditRepository _auditRepository;
-
-        public ProductStockAddedEvent(IAuditRepository auditRepository)
+        public ProductStockAddedEvent(IAuditRepository auditRepository) : base(auditRepository)
         {
-            _auditRepository = auditRepository;
-        }
-
-        public void Raise(AbstractModel stock)
-        {
-            _auditRepository.Add(stock.ToString());
         }
     }
 }
