@@ -30,11 +30,9 @@ namespace Rs.App.Core.Pm.Domain
         public decimal Cost { get; set; }
         public bool? IsActive { get; set; }
         public Units Unit { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-
         public override string ToString()
         {
-            return $"{nameof(Product)}: {Id}: {Name} {Description} {Cost} {CreatedDate}";
+            return $"{nameof(Product)}: {Id}: {Name}-{Description}-{Cost}-{CreatedDate}";
         }
     }
 }

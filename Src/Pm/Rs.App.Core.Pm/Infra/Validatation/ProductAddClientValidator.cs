@@ -11,7 +11,6 @@
 */
 using FluentValidation;
 using Rs.App.Core.Pm.Application.Dtos;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Infra.Validatation
 {
-    public class ProductAddClientValidator: AbstractValidator<ProductAddDto>
+    public class ProductAddClientValidator : AbstractValidator<ProductAddDto>
     {
         public ProductAddClientValidator()
         {

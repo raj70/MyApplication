@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 1/22/2020 3:52:37 PM
 */
+using Rs.App.Core.Pm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,13 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Pm.Infra.Domain
 {
-    public class Audit
+    public class Audit : AbstractModel
     {
         public Audit()
         {
 
         }
-
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Value { get; set; }
+        public string Value { get; set; }        
     }
 }
 

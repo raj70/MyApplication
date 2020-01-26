@@ -31,7 +31,7 @@ namespace Rs.App.Core.Pm.Domain
 
         public override string ToString()
         {
-            return $"{nameof(Stock)}: {Id}: ProductId{ProductId} {CreatedDate}";
+            return $"{nameof(Stock)}: {Id}: ProductId: {ProductId}-{CreatedDate}";
         }
 
     }
