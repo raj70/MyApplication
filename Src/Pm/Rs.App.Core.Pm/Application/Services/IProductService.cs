@@ -27,6 +27,6 @@ namespace Rs.App.Core.Pm.Application.Services
         Task<IEnumerable<Product>> GetAllAsync();
 
         Task<Product> GetAsync(Guid productId);
-        Task<Result> DeleteAsync(Guid id);
+        Task<Result> DeleteAsync(ProductRemoveDto removeDto);
     }
 }

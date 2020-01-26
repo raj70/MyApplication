@@ -26,6 +26,10 @@ namespace Rs.App.Core.Pm.Application.Dtos
         }
 
         public Guid ProductId { get; set; }
+        /// <summary>
+        /// Force to remove product if the stock does not exist, but rare
+        /// </summary>
+        public bool Force { get; set; }
 
         public Stock CreateStock(Guid id)
         {

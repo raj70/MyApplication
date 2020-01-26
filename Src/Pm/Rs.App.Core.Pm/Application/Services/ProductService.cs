@@ -105,16 +105,16 @@ namespace Rs.App.Core.Pm.Application.Services
             return result;
         }
 
-        public async Task<Result> DeleteAsync(Guid id)
+        public async Task<Result> DeleteAsync(ProductRemoveDto removeDto)
         {
             var result = await Task.Run(() =>
             {
                 var result = new Result();
 
-                var exist_product = _productRepository.Get(id);
+                var exist_product = _productRepository.Get(removeDto.ProductId);
                 if (exist_product != null)
                 {
-                    var stockSpec = StockExistSpecification.Create(id);
+                    var stockSpec = StockExistSpecification.Create(removeDto.ProductId);
                     var exist_stock = _stockRepository.Find(stockSpec).FirstOrDefault();
 
                     if (exist_stock != null)
@@ -125,7 +125,7 @@ namespace Rs.App.Core.Pm.Application.Services
                         var stockRemovedEvent = AbstractDomainEvent<StockRemoveDto>.Create(_serviceProvider);
                         stockRemovedEvent.Raise(exist_stock);
 
-                        _productRepository.Remove(id);
+                        _productRepository.Remove(removeDto.ProductId);
                         _productRepository.Complete();
 
                         var prodRemovedEvent = AbstractDomainEvent<ProductRemoveDto>.Create(_serviceProvider);

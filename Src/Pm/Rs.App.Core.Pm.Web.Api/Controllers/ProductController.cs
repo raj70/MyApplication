@@ -61,9 +61,9 @@ namespace Rs.App.Core.Pm.Web.Api.Controllers
         }
 
         [HttpDelete(Name = "DeleteProduct")]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(ProductRemoveDto removeDto)
         {
-            var result = await _productService.DeleteAsync(id);
+            var result = await _productService.DeleteAsync(removeDto);
 
             if (result.IsError)
             {
