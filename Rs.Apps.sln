@@ -15,9 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pm", "Pm", "{2F8DBBFD-1BB9-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Pm", "Src\Pm\Rs.App.Core.Pm\Rs.App.Core.Pm.csproj", "{452DCDAA-26C8-4833-BF3A-642CDA3345BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Pm.Infra.Data", "Src\Pm\Rs.App.Core.Pm.Infra.Data\Rs.App.Core.Pm.Infra.Data.csproj", "{EDE39092-1A98-467E-9F6B-19067224D17D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Pm.Infra.Data", "Src\Pm\Rs.App.Core.Pm.Infra.Data\Rs.App.Core.Pm.Infra.Data.csproj", "{EDE39092-1A98-467E-9F6B-19067224D17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Pm.Web.Api", "Src\Pm\Rs.App.Core.Pm.Web.Api\Rs.App.Core.Pm.Web.Api.csproj", "{E1B1E740-F797-43CB-9AE3-1041CD11338B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Pm.Web.Api", "Src\Pm\Rs.App.Core.Pm.Web.Api\Rs.App.Core.Pm.Web.Api.csproj", "{E1B1E740-F797-43CB-9AE3-1041CD11338B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthServer", "AuthServer", "{F4910869-372D-4365-B773-BB2356191F2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Auth.Server", "Src\AuthServer\Rs.App.Core.Auth.Server\Rs.App.Core.Auth.Server.csproj", "{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{E1B1E740-F797-43CB-9AE3-1041CD11338B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1B1E740-F797-43CB-9AE3-1041CD11338B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1B1E740-F797-43CB-9AE3-1041CD11338B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{452DCDAA-26C8-4833-BF3A-642CDA3345BB} = {2F8DBBFD-1BB9-4B59-9BD9-A155DEACF94A}
 		{EDE39092-1A98-467E-9F6B-19067224D17D} = {2F8DBBFD-1BB9-4B59-9BD9-A155DEACF94A}
 		{E1B1E740-F797-43CB-9AE3-1041CD11338B} = {2F8DBBFD-1BB9-4B59-9BD9-A155DEACF94A}
+		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB} = {F4910869-372D-4365-B773-BB2356191F2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87E56295-2FE1-46AE-9657-B81A24737DDC}
