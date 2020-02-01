@@ -36,7 +36,7 @@ namespace Rs.App.Core.Pm.Web.Api
                 .AddFluentValidation(opt =>
             {
                 opt.RegisterValidatorsFromAssemblyContaining<ProductAddClientValidator>();
-            }); ;
+            });
 
             services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
             services.AddDbContext<AuditContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
