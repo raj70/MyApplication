@@ -14,5 +14,5 @@
  *  CQRS (NOT YET)
 
 ## References:
-* Fluient API [Here] (https://www.learnentityframeworkcore.com/configuration/fluent-api)
-* Fluient Validation [Here] (https://fluentvalidation.net/start)
+* Fluient API [Here](https://www.learnentityframeworkcore.com/configuration/fluent-api)
+* Fluient Validation [Here](https://fluentvalidation.net/start)
