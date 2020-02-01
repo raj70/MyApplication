@@ -9,11 +9,13 @@ using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -26,6 +28,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         }
         // GET: api/Index
         [HttpGet(Name = "GetContacts")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Contact>>> Get()
         {
             var contacts = await _contactService.GetAllAsync(pageIndex: 1);
@@ -35,6 +38,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 
         // GET: api/Index/5
         [HttpGet("{id}", Name = "GetContact")]
+        [Authorize]
         public async Task<ActionResult<Contact>> Get(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
@@ -93,6 +97,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}", Name ="DeleteContact")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _contactService.DeleteAsync(id);

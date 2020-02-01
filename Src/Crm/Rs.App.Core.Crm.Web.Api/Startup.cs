@@ -41,6 +41,14 @@ namespace Rs.App.Core.Crm.Web.Api
                     opt.RegisterValidatorsFromAssemblyContaining<ContactClientModelValidator>();
                 });
 
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options => {
+                    options.Authority = Configuration.GetValue<string>("AuthHost");
+                    options.RequireHttpsMetadata = false; // for test
+
+                    options.Audience = "api1";
+                });
+
             //filters:
             services.AddScoped<ActionResultFilter>();
 
@@ -67,7 +75,7 @@ namespace Rs.App.Core.Crm.Web.Api
             app.UseDebugLoggerHandler();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             
 

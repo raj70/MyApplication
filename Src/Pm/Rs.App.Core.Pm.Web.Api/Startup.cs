@@ -38,6 +38,14 @@ namespace Rs.App.Core.Pm.Web.Api
                 opt.RegisterValidatorsFromAssemblyContaining<ProductAddClientValidator>();
             });
 
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options => {
+                    options.Authority = Configuration.GetValue<string>("AuthHost");
+                    options.RequireHttpsMetadata = false; // for test
+
+                    options.Audience = "api1";
+                });
+
             services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
             services.AddDbContext<AuditContext>(o => o.UseSqlServer(Configuration.GetConnectionString("pmConnString")));
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -64,7 +72,7 @@ namespace Rs.App.Core.Pm.Web.Api
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
