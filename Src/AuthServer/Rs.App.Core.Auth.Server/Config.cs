@@ -24,6 +24,7 @@ namespace Rs.App.Core.Auth.Server
                 new ApiResource("api1", "API #1")
            };
 
+        // Grant Type: https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
