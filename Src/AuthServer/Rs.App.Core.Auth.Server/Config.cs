@@ -37,7 +37,7 @@ namespace Rs.App.Core.Auth.Server
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("8B853906-EC58-4F1F-87DF-A7EA754EF806".Sha256()) },
 
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "openid", "api1" }
                 },
 
                 new Client
@@ -49,7 +49,7 @@ namespace Rs.App.Core.Auth.Server
                     RequirePkce = true,
                     ClientSecrets = { new Secret("A2F6FA17-962F-471F-93A6-EB0A49BA7110".Sha256()) },
 
-                    AllowedScopes = {  "api1" }
+                    AllowedScopes = { "openid", "api1" }
                 },                
             };
     }

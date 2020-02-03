@@ -15,7 +15,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
