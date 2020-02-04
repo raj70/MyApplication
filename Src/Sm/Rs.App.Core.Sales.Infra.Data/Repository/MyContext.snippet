@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>
+        <![CDATA[Repository Context]]>
+      </Title>
+      <Author>Rajen Shrestha</Author>
+      <Description>DataContext</Description>
+      <Shortcut>Context</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>classname</ID>
+          <ToolTip>Name of Domain</ToolTip>
+          <Default>My</Default>
+        </Literal>
+        <Literal>
+          <ID>baseclassName</ID>
+          <ToolTip>EF Configuration</ToolTip>
+          <Function>SimpleTypeName(Microsoft.EntityFrameworkCore.IEntityTypeConfiguration)</Function>
+          <Default>IEntityTypeConfiguration</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[
+           public class $classname$Context : AbstractDataContext<$classname$Context>
+    {
+        public $classname$Context(IConfiguration configuration, DbContextOptions<$classname$Context> options)
+            : base(configuration, options)
+        {
+        }
+
+        public virtual DbSet<$classname$> $classname$s { get; set; }        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new $classname$EntityConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+    
+    public class $classname$Repository : AbstractRepository<$classname$>, I$classname$Repository
+    {
+        private readonly $classname$Context _$classname$Context;
+
+        public $classname$Repository($classname$Context $classname$Context): base($classname$Context)
+        {
+            _$classname$Context = $classname$Context;
+        }
+
+        public void Complete()
+        {
+            _$classname$Context.SaveChanges();
+        }
+
+        public async Task CompleteAsync()
+        {
+            await _$classname$Context.SaveChangesAsync();
+        }
+
+        public void Transacation()
+        {
+            _$classname$Context.Database.BeginTransaction();
+        }
+    }
+        ]]>
+      </Code>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.EntityFrameworkCore</Namespace>
+        </Import>
+        <Import>
+          <Namespace>Microsoft.Extensions.Configuration</Namespace>
+        </Import>
+      </Imports>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

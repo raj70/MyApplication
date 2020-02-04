@@ -1,13 +1,13 @@
 ﻿/** 
-* Copyright 2020 rajen.shrestha
+* Copyright 2020 rajen shrestha
 * All right are reserved. Reproduction or transmission in whole or in
 * part, in any form or by any means, electronic, mechanical or otherwise
 * is published without the prior written consent of the copyright owner.
 * 
 * [4.0.30319.42000]
-* Author: RAJDEVMAC rajen.shrestha
+* Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 2/3/2020 7:46:14 PM
+* Time: 2/3/2020 9:35:01 PM
 */
 using System;
 using System.Collections.Generic;
@@ -17,11 +17,19 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Domain
 {
-    public class ADomain : AbstractModel
+    public class OrderProduct
     {
-        public ADomain()
+        public OrderProduct()
         {
+
         }
+
+        public Guid OrderId { get; set; }
+        public Guid ProductId { get; set; }
+
+        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
+
     }
 }
 

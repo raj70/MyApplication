@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>
+        <![CDATA[EF Entity Configuration- Fluent API ]]>
+      </Title>
+      <Author>Rajen Shrestha</Author>
+      <Description>Fluient API</Description>
+      <Shortcut>EntityApi</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>              
+        <Literal>
+          <ID>classname</ID>
+          <ToolTip>Name of Domain</ToolTip>
+          <Default>My</Default>
+        </Literal>
+        <Literal>
+          <ID>baseclassName</ID>
+          <ToolTip>EF Configuration</ToolTip>
+          <Function>SimpleTypeName(Microsoft.EntityFrameworkCore.IEntityTypeConfiguration)</Function>
+          <Default>IEntityTypeConfiguration</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[
+          public class $classname$EntityConfiguration : IEntityTypeConfiguration<$classname$>
+          {
+              public $classname$EntityConfiguration()
+              {
+
+              }
+
+              public void Configure(EntityTypeBuilder<$classname$> builder)
+              {
+                  builder.Property(nameof($classname$.Id)).IsRequired(true);
+              }
+          }
+        ]]>
+      </Code>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.EntityFrameworkCore</Namespace>         
+        </Import>
+        <Import>
+          <Namespace>Microsoft.EntityFrameworkCore.Metadata.Builders</Namespace>
+        </Import>
+      </Imports>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>
+        <![CDATA[Repository]]>
+      </Title>
+      <Author>Rajen Shrestha</Author>
+      <Description>IRepository</Description>
+      <Shortcut>IRep</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>classname</ID>
+          <ToolTip>Name of Domain</ToolTip>
+          <Default>My</Default>
+        </Literal>        
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[
+          public interface I$classname$Repository : IRepository<$classname$>, IURepository
+          {             
+          }
+        ]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

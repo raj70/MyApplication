@@ -9,35 +9,29 @@
 * Machine: RAJDEVMAC
 * Time: 2/3/2020 7:49:22 PM
 */
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Rs.App.Core.Sales.Domain;
-using Rs.App.Core.Sales.Infra.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Infra.Data.Repository
 {
-    public class ARepository : AbstractRepository<ADomain>, IARepository
+    public class SaleContext : AbstractDataContext<SaleContext>
     {
-        // Composited
-        private readonly AContext _aContext;
-
-        public ARepository(AContext aContext) : base(aContext)
+        public SaleContext(IConfiguration configuration, DbContextOptions<SaleContext> options)
+            : base(configuration, options)
         {
-            _aContext = aContext;
         }
 
-        public void Complete()
-        {
-            _aContext.SaveChanges();
-        }
+        public virtual DbSet<Sale> ADomains { get; set; }
 
-        public async Task CompleteAsync()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            await _aContext.SaveChangesAsync();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
