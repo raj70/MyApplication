@@ -22,8 +22,6 @@ namespace Rs.App.Core.Pm.Infra.Repository
         {
         }
 
-        public virtual DbSet<Audit> Audits { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

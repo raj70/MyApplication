@@ -11,7 +11,6 @@
 */
 using FluentValidation;
 using Rs.App.Core.Crm.Application.ClientModel;
-using Rs.App.Core.Crm.Application.ClientModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
