@@ -12,6 +12,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Rs.App.Core.Sales.Domain;
+using Rs.App.Core.Sales.Infra.Data.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,17 @@ namespace Rs.App.Core.Sales.Infra.Data.Repository
         {
         }
 
-        public virtual DbSet<Sale> ADomains { get; set; }
+        public virtual DbSet<Sale> Sales { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AuditEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderProductEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new SalePersonEntityConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -20,8 +20,6 @@ using System.Text;
 
 namespace Rs.App.Core.Sales.Infra.Data.Repository
 {
-
-
     public class CustomerContext : AbstractDataContext<CustomerContext>
     {
         public CustomerContext(IConfiguration configuration, DbContextOptions<CustomerContext> options)

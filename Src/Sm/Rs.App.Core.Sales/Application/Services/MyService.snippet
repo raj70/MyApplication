@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>
+        <![CDATA[Application Service]]>
+      </Title>
+      <Author>Rajen Shrestha</Author>
+      <Description>Application Service</Description>
+      <Shortcut>Service</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>classname</ID>
+          <ToolTip>Name of Domain</ToolTip>
+          <Default>My</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[
+           public interface I$classname$Service
+          {
+              Task<$classname$> Get$classname$Async(Guid id);
+              Task<Infra.Domain.Result> UpdateAsync(Guid id, Dtos.$classname$UpdateDto dto);
+              Task<Result> AddAsync(Dtos.$classname$Dto dto);
+          }
+          
+          public class $classname$Service : I$classname$Service
+    {
+        private readonly I$classname$Repository _repository;
+
+        public $classname$Service(I$classname$Repository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<$classname$> Get$classname$Async(Guid id)
+        {
+            var $classname$ = await Task.Run(() => {
+                return Get$classname$(id);
+            });
+
+            return $classname$;
+        }
+
+        public async Task<Infra.Domain.Result> UpdateAsync(Guid id, $classname$UpdateDto dto)
+        {
+             var result = new Result();
+
+            return result;
+        }
+        
+        public async Task<Result> AddAsync(SaleUpdateDto dto)
+        {
+            var result = new Result();
+
+            return result;
+        }
+    }
+    
+    // Move this class to spec folder
+    
+    public class $classname$ExistSpecification : ISpecification<$classname$>
+    {
+        private readonly Guid _id;
+
+        public $classname$ExistSpecification(Guid id)
+        {
+            _id = id;
+        }
+
+        public bool IsSatisfiedBy($classname$ model)
+        {
+            return ToExpression().Compile().Invoke(model);
+        }
+
+        public Expression<Func<$classname$, bool>> ToExpression()
+        {
+            return x =>
+                       _id == x.Id;
+        }
+        
+         public static $classname$ExistSpecification Create(Guid id)
+        {
+            return new $classname$ExistSpecification(id);
+        }
+    }
+        ]]>
+      </Code>
+      <Imports>
+        <Import>
+          <Namespace>System.Threading.Tasks</Namespace>
+        </Import>
+      </Imports>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -29,6 +29,7 @@ namespace Rs.App.Core.Sales.Infra.Data.Configurations
 
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.ToTable("sales.Orders");
             builder.Property(nameof(Order.SaleId)).IsRequired(true);
         }
     }

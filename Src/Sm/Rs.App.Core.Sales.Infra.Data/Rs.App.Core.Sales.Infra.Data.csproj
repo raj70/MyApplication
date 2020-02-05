@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Rs.App.Core.Sales.Infra.Data</RootNamespace>
-    <AssemblyName>Rs.App.Core.Infra.MSSql.Data</AssemblyName>
+    <AssemblyName>Rs.App.Core.Sales.Infra.Data</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

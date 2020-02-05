@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Auth.Server", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sm", "Sm", "{64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Sales", "Src\Sm\Rs.App.Core.Sales\Rs.App.Core.Sales.csproj", "{C2575D3C-59F6-4AB6-B5CA-ED2DC114B6FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales", "Src\Sm\Rs.App.Core.Sales\Rs.App.Core.Sales.csproj", "{C2575D3C-59F6-4AB6-B5CA-ED2DC114B6FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Sales.Infra.Data", "Src\Sm\Rs.App.Core.Sales.Infra.Data\Rs.App.Core.Sales.Infra.Data.csproj", "{E30AD423-7D1F-492C-806F-E99FDA35456B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales.Infra.Data", "Src\Sm\Rs.App.Core.Sales.Infra.Data\Rs.App.Core.Sales.Infra.Data.csproj", "{E30AD423-7D1F-492C-806F-E99FDA35456B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Sales.Web.Api", "Src\Sm\Rs.App.Core.Sales.Web.Api\Rs.App.Core.Sales.Web.Api.csproj", "{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{E30AD423-7D1F-492C-806F-E99FDA35456B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E30AD423-7D1F-492C-806F-E99FDA35456B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E30AD423-7D1F-492C-806F-E99FDA35456B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

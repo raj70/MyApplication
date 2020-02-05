@@ -23,16 +23,23 @@ namespace Rs.App.Core.Sales.Domain
         {
         }
 
-        public Guid CustomerId { get; set; }
+        public Guid CustomerId { get; set; } // is required set in Fluent API
         public Guid SalePersionId { get; set; }
         public DateTime SaleDate { get; set; } = DateTime.UtcNow;
 
         public virtual Customer Customer { get; set; }
         public virtual SalePerson SalePerson { get; set; }
 
-        public bool IsValidCustomer()
+        public virtual bool IsValidCustomer()
         {
-            return CustomerId != SalePersionId;
+            if (SalePersionId != Guid.Empty)
+            {
+                return CustomerId != SalePersionId;
+            }
+            else
+            {
+                return CustomerId != Guid.Empty;
+            }
         }
     }
 }

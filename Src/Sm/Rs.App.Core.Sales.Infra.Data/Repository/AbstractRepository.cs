@@ -15,6 +15,7 @@ using Rs.App.Core.Sales.Spec;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,48 +29,69 @@ namespace Rs.App.Core.Sales.Infra.Data.Repository
             _dbContext = dbContext;
         }
 
-        public virtual void Add(T model)
+        public async virtual Task<T> AddAsync(T model)
         {
-            this.Set().Add(model);
+            var entity = await this.Set().AddAsync(model);
+            return entity.Entity;
         }
 
-        public IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> FindAsync(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return this.Set().Where(predicate);
+            return await Task.Run(() => this.Set().Where(predicate));
         }
 
-        public IEnumerable<T> Find(ISpecification<T> predicate)
+        public async virtual Task<T> GetAsync(Guid id)
         {
-            return this.Set().Where(predicate.ToExpression());
+            return await this.Set().FindAsync(id).AsTask();
         }
 
-        public virtual T Get(Guid id)
+        public async virtual Task<IEnumerable<T>> GetAllAsync()
         {
-            return this.Set().Find(id);
+            return await this.Set().ToListAsync();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public async virtual Task RemoveAsync(Guid id)
         {
-            return this.Set().ToList();
-        }
-
-        public virtual void Remove(Guid id)
-        {
-            var t = Get(id);
+            var t = await GetAsync(id);
             if (t != null)
             {
                 this.Set().Remove(t);
             }
         }
 
-        public virtual void RemoveRange(IList<Guid> id)
+        protected virtual DbSet<T> Set()
+        {
+            return _dbContext.Set<T>();
+        }
+
+        public T Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        protected virtual DbSet<T> Set()
+        public IEnumerable<T> GetAll()
         {
-            return _dbContext.Set<T>();
+            return Set().ToList();
+        }
+
+        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return Set().Where(predicate);
+        }
+
+        public T Add(T model)
+        {
+             var t = Set().Add(model);
+            return t.Entity;
+        }
+
+        public void Remove(Guid id)
+        {
+            var t = Get(id);
+            if (t != null)
+            {
+                this.Set().Remove(t);
+            }
         }
     }
 }

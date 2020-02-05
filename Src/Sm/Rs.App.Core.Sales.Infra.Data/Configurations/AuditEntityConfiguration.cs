@@ -7,29 +7,31 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 2/3/2020 9:35:01 PM
+* Time: 2/5/2020 10:35:39 PM
 */
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Rs.App.Core.Sales.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Sales.Domain
+namespace Rs.App.Core.Sales.Infra.Data.Configurations
 {
-    public class OrderProduct : AbstractModel
+    public class AuditEntityConfiguration : IEntityTypeConfiguration<Audit>
     {
-        public OrderProduct()
+        public AuditEntityConfiguration()
         {
 
         }
 
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
-
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
-        
+        public void Configure(EntityTypeBuilder<Audit> builder)
+        {
+            builder.ToTable("sales.Audit");
+        }
     }
+
 }
 

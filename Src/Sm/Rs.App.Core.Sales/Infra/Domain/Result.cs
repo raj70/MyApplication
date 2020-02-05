@@ -7,29 +7,33 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 2/3/2020 9:35:01 PM
+* Time: 1/21/2020 9:49:54 PM
 */
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Sales.Domain
+namespace Rs.App.Core.Sales.Infra.Domain
 {
-    public class OrderProduct : AbstractModel
+    public class Result
     {
-        public OrderProduct()
+        public Result()
         {
 
         }
 
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
+        public bool IsError { get; set; } = false;
+        public string Message { get; set; } = "Successful";
+        public int StatuCode { get; set; } = 200;
+        public dynamic Value { get; set; }
 
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
-        
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
 
