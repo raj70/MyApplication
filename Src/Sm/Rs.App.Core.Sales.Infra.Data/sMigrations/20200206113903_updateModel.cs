@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 {
-    public partial class salesMigrations : Migration
+    public partial class updateModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "sales.Audits",
+                name: "sales.Audit",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -17,7 +17,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Audits", x => x.Id);
+                    table.PrimaryKey("PK_sales.Audit", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,9 +66,11 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     CustomerId = table.Column<Guid>(nullable: false),
-                    SalePersionId = table.Column<Guid>(nullable: false),
+                    SalePersonId = table.Column<Guid>(nullable: false),
                     SaleDate = table.Column<DateTime>(nullable: false),
-                    SalePersonId = table.Column<Guid>(nullable: true)
+                    IsActive = table.Column<bool>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    TotalCost = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,7 +86,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                         column: x => x.SalePersonId,
                         principalTable: "sales.SalePeople",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,7 +163,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Audits");
+                name: "sales.Audit");
 
             migrationBuilder.DropTable(
                 name: "sales.OrderProducts");

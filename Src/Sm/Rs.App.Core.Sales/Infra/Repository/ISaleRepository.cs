@@ -13,10 +13,13 @@ using Rs.App.Core.Sales.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Infra.Repository
 {
     public interface ISaleRepository : IRepository<Sale>, IURepository
     {
+        void Update(Guid id, Sale sale); 
+        Task UpdateAsync(Guid id, Sale sale);
     }
 }

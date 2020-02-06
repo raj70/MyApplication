@@ -13,11 +13,13 @@ using Rs.App.Core.Sales.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Events
 {
     public interface IDomainEvent<TDto> where TDto : class
     {
         void Raise(AbstractModel model);
+        Task RaiseAsync(AbstractModel model);
     }
 }

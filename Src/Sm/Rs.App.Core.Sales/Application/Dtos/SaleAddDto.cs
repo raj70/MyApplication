@@ -22,29 +22,29 @@ namespace Rs.App.Core.Sales.Application.Dtos
     {
         public SaleAddDto()
         {
-
+            ProductIds = new List<Guid>();
         }
 
-        public Guid ProductId { get; set; }
+        public List<Guid> ProductIds { get; private set; }
         public Guid CustomerId { get; set; }
         public Guid SalePersonId { get; set; }
-        public DateTime SaleDateTime { get; set; } = DateTime.UtcNow;
+        public decimal TotalCost { get; set; }
 
         public Sale Create()
         {
             return new Sale()
             {
                 CustomerId = CustomerId,
-                SaleDate = SaleDateTime,
-                SalePersionId = SalePersonId,
+                SalePersonId = SalePersonId,
+                TotalCost = TotalCost
             };
         }
-        public OrderProduct CreateOrderProduct(Guid orderId)
+        public OrderProduct CreateOrderProduct(Guid orderId, Guid productId)
         {
             return new OrderProduct
             {
                 OrderId = orderId,
-                ProductId = ProductId
+                ProductId = productId
             };
         }
         public Customer Customer()
@@ -54,18 +54,16 @@ namespace Rs.App.Core.Sales.Application.Dtos
                 ContactId = CustomerId
             };
         }
-
         public SalePerson SalePerson()
         {
             return new SalePerson() {
                 ContactId = SalePersonId
             };
         }
-
-        public Product Product()
+        public Product Product(Guid productId)
         {
             return new Product() {
-                ProductId = ProductId,
+                ProductId = productId,
             };
         }
     }

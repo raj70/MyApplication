@@ -39,6 +39,31 @@ namespace Rs.App.Core.Sales.Infra.Data.Repository
         {
             await _aContext.SaveChangesAsync();
         }
+
+        public void Update(Guid id, Sale sale)
+        {
+            var existedSales = Find(x => x.Id == id);
+            if (existedSales != null)
+            {
+                var existedSale = existedSales.FirstOrDefault();
+                existedSale.TotalCost = sale.TotalCost;
+                existedSale.IsActive = sale.IsActive;
+                existedSale.UpdateDate = sale.UpdateDate;
+                _aContext.Entry(existedSale).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            }
+        }
+
+        public async Task UpdateAsync(Guid id, Sale sale)
+        {
+            var existedSales = await FindAsync(x => x.Id == id);
+            if(existedSales != null)
+            {
+                var existedSale = existedSales.FirstOrDefault();
+                existedSale.IsActive = sale.IsActive;
+                existedSale.UpdateDate = sale.UpdateDate;
+                _aContext.Entry(existedSale).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            }
+        }
     }
 }
 

@@ -31,6 +31,10 @@ namespace Rs.App.Core.Sales.Infra.Data.Configurations
         {
             builder.ToTable("sales.Sales");
             builder.Property(nameof(Sale.CustomerId)).IsRequired(true);
+            builder.Property(nameof(Sale.IsActive)).IsRequired(true);
+            builder.Property(nameof(Sale.TotalCost))
+                .HasColumnType("decimal(18,4)")
+                .IsRequired(true);
         }
     }
 }

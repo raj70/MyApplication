@@ -12,6 +12,8 @@
 using Rs.App.Core.Sales.Domain;
 using Rs.App.Core.Sales.Infra.Domain;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Application.Services
@@ -19,8 +21,9 @@ namespace Rs.App.Core.Sales.Application.Services
     public interface ISaleService
     {
         Task<Sale> GetSaleAsync(Guid id);
-        Task<Result> UpdateAsync(Guid id, Dtos.SaleAddDto dto);
+        Task<IEnumerable<Sale>> GetAllSaleAsync(bool isActive);
         Task<Result> AddAsync(Dtos.SaleAddDto dto);
+        Task<Result> ChangeActiveAsync(Guid id);
     }  
 
 }

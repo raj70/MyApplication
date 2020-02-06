@@ -33,7 +33,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Audits");
+                    b.ToTable("sales.Audit");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Customer", b =>
@@ -125,14 +125,21 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool?>("IsActive")
+                        .IsRequired()
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("SalePersionId")
+                    b.Property<Guid>("SalePersonId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SalePersonId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("TotalCost")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -194,7 +201,9 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasOne("Rs.App.Core.Sales.Domain.SalePerson", "SalePerson")
                         .WithMany()
-                        .HasForeignKey("SalePersonId");
+                        .HasForeignKey("SalePersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
