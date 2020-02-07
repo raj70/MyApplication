@@ -31,11 +31,35 @@ namespace Rs.App.Core.Sales.Web.Api.Controllers
             return Ok(sales);
         }
 
+        [HttpGet("{salePersonId}", Name = "GetAllSalesFor")]
+        public async Task<IActionResult> GetAll(Guid salePersonId)
+        {
+            var sales = await _saleService.GetAllSaleAsync(salePersonId, isActive: true);
+
+            return Ok(sales);
+        }
+
         [HttpPost(Name = "AddSales")]
         public async Task<IActionResult> Post([FromBody] SaleAddClientModel saleAddDto)
         {
-            await _saleService.AddAsync(saleAddDto);
-            return Ok();
+            var result = await _saleService.AddAsync(saleAddDto);
+            if (result.IsError)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpPut("{salesId}", Name = "UpdateSales")]
+        public async Task<IActionResult> Put(Guid salesId, [FromBody] SaleUpdateClientModel saleUpdateDto)
+        {
+            var result = await _saleService.UpdateSale(salesId, saleUpdateDto);
+
+            if (result.IsError)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }

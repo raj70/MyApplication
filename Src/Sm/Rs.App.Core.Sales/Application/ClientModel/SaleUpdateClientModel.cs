@@ -24,7 +24,6 @@ namespace Rs.App.Core.Sales.Application.ClientModel
             TotalCost = null;
         }
 
-        public Guid SaleId { get; set; }
         public DateTime UpdateDate { get; set; } = DateTime.UtcNow;
         public decimal? TotalCost { get; set; }
         public bool IsActive { get; set; } = true;

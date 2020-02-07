@@ -31,12 +31,12 @@ namespace Rs.App.Core.Sales.Domain
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("Id:" + Id + ",");
+            sb.Append("Name:" + this.GetType().Name + ", ");
             this.GetType().GetProperties().ToList().ForEach(x => {
                 var property = x.Name;
                 var value = x.GetValue(this);
                 sb.Append(property + ":" + value);
-                sb.Append(",");
+                sb.Append(", ");
             });
             return sb.ToString();
         }

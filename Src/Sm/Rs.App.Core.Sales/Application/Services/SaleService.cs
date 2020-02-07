@@ -89,17 +89,18 @@ namespace Rs.App.Core.Sales.Application.Services
                 await orderAddedEvent.RaiseAsync(createdOrder);
 
                 // product
-                dto.ProductIds.ForEach(async p =>
+                dto.ProductIds.ForEach( p =>
                 {
-                    var existproduct = await _productRepository.FindAsync(x => x.ProductId == p);
-                    if (existproduct.FirstOrDefault() == null)
+                    var existProducts =  _productRepository.Find(x => x.ProductId == p);
+                    var existProduct = existProducts.FirstOrDefault();
+                    if (existProduct == null)
                     {
-                        await _productRepository.AddAsync(dto.Product(p));
+                         _productRepository.Add(dto.Product(p));
                     }
-
                     // order-product
-                    var orderProduct = dto.CreateOrderProduct(createdOrder.Id, p);
-                    var createOrderProduct = await _orderProductRepository.AddAsync(orderProduct);
+                    var orderProduct = dto.CreateOrderProduct(createdOrder.Id, existProduct.Id);
+                    var createOrderProduct =  _orderProductRepository.Add(orderProduct);
+                   
                 });
 
                 await _productRepository.CompleteAsync();
@@ -117,34 +118,16 @@ namespace Rs.App.Core.Sales.Application.Services
             return result;
         }
 
-        private async Task<SalePerson> GetSalePerson(SaleAddClientModel dto)
-        {
-            var existPerson = await _salePersonRepository.FindAsync(x => x.ContactId == dto.SalePersonId);
-            if (existPerson.FirstOrDefault() == null)
-            {
-                await _salePersonRepository.AddAsync(dto.SalePerson());
-                await _salePersonRepository.CompleteAsync();
-            }
-
-            return existPerson.FirstOrDefault();
-        }
-
-        private async Task<Customer> GetCustomer(SaleAddClientModel dto)
-        {
-            // customer
-            var existCustomer = await _customerRepository.FindAsync(x => x.ContactId == dto.CustomerId);
-            if (existCustomer.FirstOrDefault() == null)
-            {
-                await _customerRepository.AddAsync(dto.Customer());
-                await _customerRepository.CompleteAsync();
-            }
-
-            return existCustomer.FirstOrDefault();
-        }
-
         public async Task<IEnumerable<Sale>> GetAllSaleAsync(bool isActive = true)
         {
             var sales = await _saleRepository.FindAsync(x => x.IsActive == isActive);
+            return sales;
+        }
+        public async Task<IEnumerable<Sale>> GetAllSaleAsync(Guid salePersonId, bool isActive)
+        {
+            var sales = await _saleRepository.FindAsync(x =>
+                        x.IsActive == isActive
+                        && x.SalePersonId == salePersonId);
             return sales;
         }
 
@@ -154,19 +137,27 @@ namespace Rs.App.Core.Sales.Application.Services
             return sale;
         }
 
-        public async Task<Result> UpdateSale(SaleUpdateClientModel saleUpdateDto)
+        public async Task<Result> UpdateSale(Guid saleId, SaleUpdateClientModel saleUpdateDto)
         {
             var result = new Result();
-            var existedSales = await _saleRepository.FindAsync(x => x.Id == saleUpdateDto.SaleId);
-
+            var existedSales = await _saleRepository.FindAsync(x => x.Id == saleId);
             var existedSale = existedSales.FirstOrDefault();
-            if (existedSale != null)
+
+            if (saleUpdateDto.TotalCost != null)
             {
+                var validSaleUpdateSpec = ValidSaleSpecification.Create(saleId, saleUpdateDto.TotalCost.Value);
+                existedSales = await _saleRepository.FindAsync(validSaleUpdateSpec.ToExpression());
+                existedSale = existedSales.FirstOrDefault();
+            }
+
+            if (existedSale != null && !result.IsError)
+            {
+
                 existedSale.UpdateDate = saleUpdateDto.UpdateDate;
                 existedSale.TotalCost = saleUpdateDto.TotalCost ?? existedSale.TotalCost;
                 existedSale.IsActive = saleUpdateDto.IsActive;
                 // udpate
-                await _saleRepository.UpdateAsync(saleUpdateDto.SaleId, existedSale);
+                await _saleRepository.UpdateAsync(saleId, existedSale);
                 await _saleRepository.CompleteAsync();
                 // event
                 await SaleUdpateEvent(existedSale);
@@ -174,7 +165,7 @@ namespace Rs.App.Core.Sales.Application.Services
             else
             {
                 result.IsError = true;
-                result.Message = "Sale does not exist";
+                result.Message = "You cannot reduce cost from the original value or Sale does not exist";
                 result.StatuCode = 400;
             }
 
@@ -225,6 +216,32 @@ namespace Rs.App.Core.Sales.Application.Services
 
             return exist_Sale;
         }
+
+        private async Task<SalePerson> GetSalePerson(SaleAddClientModel dto)
+        {
+            var existPerson = await _salePersonRepository.FindAsync(x => x.ContactId == dto.SalePersonId);
+            if (existPerson.FirstOrDefault() == null)
+            {
+                await _salePersonRepository.AddAsync(dto.SalePerson());
+                await _salePersonRepository.CompleteAsync();
+            }
+
+            return existPerson.FirstOrDefault();
+        }
+
+        private async Task<Customer> GetCustomer(SaleAddClientModel dto)
+        {
+            // customer
+            var existCustomer = await _customerRepository.FindAsync(x => x.ContactId == dto.CustomerId);
+            if (existCustomer.FirstOrDefault() == null)
+            {
+                await _customerRepository.AddAsync(dto.Customer());
+                await _customerRepository.CompleteAsync();
+            }
+
+            return existCustomer.FirstOrDefault();
+        }
+
     }
 }
 

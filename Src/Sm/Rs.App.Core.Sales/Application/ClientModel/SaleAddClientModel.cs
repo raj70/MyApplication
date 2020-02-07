@@ -25,7 +25,7 @@ namespace Rs.App.Core.Sales.Application.ClientModel
             ProductIds = new List<Guid>();
         }
 
-        public List<Guid> ProductIds { get; private set; }
+        public List<Guid> ProductIds { get; set; }
         // from CRM (not the id of customer)
         public Guid CustomerId { get; set; }
         // same as above

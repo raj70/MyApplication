@@ -9,6 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 2/4/2020 6:53:28 PM
 */
+using Rs.App.Core.Sales.Application.ClientModel;
 using Rs.App.Core.Sales.Domain;
 using Rs.App.Core.Sales.Infra.Domain;
 using System;
@@ -22,8 +23,10 @@ namespace Rs.App.Core.Sales.Application.Services
     {
         Task<Sale> GetSaleAsync(Guid id);
         Task<IEnumerable<Sale>> GetAllSaleAsync(bool isActive);
-        Task<Result> AddAsync(ClientModel.SaleAddClientModel dto);
+        Task<IEnumerable<Sale>> GetAllSaleAsync(Guid salePersonId, bool isActive);
+        Task<Result> AddAsync(SaleAddClientModel dto);
         Task<Result> ChangeActiveAsync(Guid id);
+        Task<Result> UpdateSale(Guid salesId, SaleUpdateClientModel saleUpdateDto);
     }  
 
 }

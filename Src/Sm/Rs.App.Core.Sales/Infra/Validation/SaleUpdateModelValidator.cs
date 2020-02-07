@@ -24,14 +24,13 @@ namespace Rs.App.Core.Sales.Infra.Validation
     {
         public SaleUpdateModelValidator()
         {
-            RuleFor(x => x.SaleId).NotEqual(Guid.Empty).WithMessage("Sale Id is not valid");
             RuleFor(x => x.TotalCost).Custom((x, c) =>
             {
                 if (x.HasValue)
                 {
                     if(x.Value <= 0)
                     {
-                        c.AddFailure(new ValidationFailure(nameof(SaleUpdateClientModel.TotalCost), "TotalCost has not corect values"));
+                        c.AddFailure(new ValidationFailure(nameof(SaleUpdateClientModel.TotalCost), "TotalCost has incorrect values"));
                     }
                     
                 }
