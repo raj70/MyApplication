@@ -36,7 +36,11 @@ namespace Rs.App.Core.Sales.Spec
         public Expression<Func<Sale, bool>> ToExpression()
         {
             return x =>
-                       _sale.Id == x.Id;
+                x.CustomerId == _sale.CustomerId
+                && x.SalePersonId == _sale.SalePersonId
+                && x.TotalCost == _sale.TotalCost
+                && x.CreatedDate >= DateTime.UtcNow.AddMinutes(-1)
+                && x.CreatedDate <= DateTime.UtcNow.AddMinutes(1);
         }
 
         public static SaleExistSpecification Create(Sale sale)

@@ -11,9 +11,9 @@ using System;
 * Machine: RAJDEVMAC
 * Time: 2/4/2020 6:53:28 PM
 */
-namespace Rs.App.Core.Sales.Application.Dtos
+namespace Rs.App.Core.Sales.Application.ClientModel
 {
-    public class OrderAddDto
+    public class OrderAddClientModel
     {       
 
     }

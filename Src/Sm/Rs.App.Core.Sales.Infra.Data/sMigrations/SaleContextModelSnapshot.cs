@@ -33,7 +33,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.Audit");
+                    b.ToTable("sales.Audits");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Customer", b =>

@@ -19,27 +19,27 @@ namespace Rs.App.Core.Sales.Infra.Data.Repository
 {
     public class AuditRepository : AbstractRepository<Audit>, IAuditRepository
     {
-        private readonly AuditContext _AuditContext;
+        private readonly AuditContext _auditContext;
 
         public AuditRepository(AuditContext AuditContext) : base(AuditContext)
         {
-            _AuditContext = AuditContext;
+            _auditContext = AuditContext;
         }
 
 
         public void Complete()
         {
-            _AuditContext.SaveChanges();
+            _auditContext.SaveChanges();
         }
 
         public async Task CompleteAsync()
         {
-            await _AuditContext.SaveChangesAsync();
+            await _auditContext.SaveChangesAsync();
         }
 
         public void Transacation()
         {
-            _AuditContext.Database.BeginTransaction();
+            _auditContext.Database.BeginTransaction();
         }
     }
 

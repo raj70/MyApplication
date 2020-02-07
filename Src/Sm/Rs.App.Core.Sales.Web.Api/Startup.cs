@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Rs.App.Core.Sales.Application.ClientModel;
+using Rs.App.Core.Sales.Application.Services;
+using Rs.App.Core.Sales.Events;
 using Rs.App.Core.Sales.Infra.Data.Repository;
 using Rs.App.Core.Sales.Infra.Repository;
+using Rs.App.Core.Sales.Infra.Validation;
 
 namespace Rs.App.Core.Sales.Web.Api
 {
@@ -27,7 +32,13 @@ namespace Rs.App.Core.Sales.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(); 
+            services
+                .AddControllers()
+                .AddFluentValidation(o =>
+                {
+                    o.RegisterValidatorsFromAssemblyContaining<SaleAddModelValidator>();
+                });
+                 
             
             services.AddDbContext<SaleContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
             services.AddDbContext<SalePersonContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
@@ -35,6 +46,7 @@ namespace Rs.App.Core.Sales.Web.Api
             services.AddDbContext<OrderContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
             services.AddDbContext<CustomerContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
             services.AddDbContext<OrderProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
+            services.AddDbContext<AuditContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
 
             services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<ISalePersonRepository, SalePersonRepository>();
@@ -42,6 +54,17 @@ namespace Rs.App.Core.Sales.Web.Api
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderProductRepository, OrderProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IAuditRepository, AuditRepository>();
+
+            services.AddScoped<IDomainEvent<SaleAddClientModel>, SaleAddedEvent>();
+            //OrderAddClientModel
+            services.AddScoped<IDomainEvent<OrderAddClientModel>, OrderAddedEvent>();
+            services.AddScoped<IDomainEvent<SaleUpdateClientModel>, SaleUpdateEvent>();
+
+            services.AddScoped<ISaleService, SaleService>();
+
+
+            services.AddOpenApiDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +83,9 @@ namespace Rs.App.Core.Sales.Web.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3(); // serve Swagger UI
         }
     }
 }

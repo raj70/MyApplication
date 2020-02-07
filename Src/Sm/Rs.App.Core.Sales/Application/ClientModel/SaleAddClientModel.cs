@@ -16,17 +16,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Sales.Application.Dtos
+namespace Rs.App.Core.Sales.Application.ClientModel
 {
-    public class SaleAddDto
+    public class SaleAddClientModel
     {
-        public SaleAddDto()
+        public SaleAddClientModel()
         {
             ProductIds = new List<Guid>();
         }
 
         public List<Guid> ProductIds { get; private set; }
+        // from CRM (not the id of customer)
         public Guid CustomerId { get; set; }
+        // same as above
         public Guid SalePersonId { get; set; }
         public decimal TotalCost { get; set; }
 
@@ -34,8 +36,6 @@ namespace Rs.App.Core.Sales.Application.Dtos
         {
             return new Sale()
             {
-                CustomerId = CustomerId,
-                SalePersonId = SalePersonId,
                 TotalCost = TotalCost
             };
         }

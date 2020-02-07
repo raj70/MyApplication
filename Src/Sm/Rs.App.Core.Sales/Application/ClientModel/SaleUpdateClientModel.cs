@@ -15,11 +15,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rs.App.Core.Sales.Application.Dtos
+namespace Rs.App.Core.Sales.Application.ClientModel
 {
-    public class SaleUpdateDto
+    public class SaleUpdateClientModel
     {
-        public SaleUpdateDto()
+        public SaleUpdateClientModel()
         {
             TotalCost = null;
         }

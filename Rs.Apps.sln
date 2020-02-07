@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales", "Src\Sm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales.Infra.Data", "Src\Sm\Rs.App.Core.Sales.Infra.Data\Rs.App.Core.Sales.Infra.Data.csproj", "{E30AD423-7D1F-492C-806F-E99FDA35456B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rs.App.Core.Sales.Web.Api", "Src\Sm\Rs.App.Core.Sales.Web.Api\Rs.App.Core.Sales.Web.Api.csproj", "{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales.Web.Api", "Src\Sm\Rs.App.Core.Sales.Web.Api\Rs.App.Core.Sales.Web.Api.csproj", "{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +91,7 @@ Global
 		{0BAB69A6-FDA0-463F-875A-8DF46F92EDFB} = {F4910869-372D-4365-B773-BB2356191F2A}
 		{C2575D3C-59F6-4AB6-B5CA-ED2DC114B6FC} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
 		{E30AD423-7D1F-492C-806F-E99FDA35456B} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
+		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87E56295-2FE1-46AE-9657-B81A24737DDC}

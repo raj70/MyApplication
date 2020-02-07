@@ -9,7 +9,7 @@
 * Machine: RAJDEVMAC
 * Time: 2/6/2020 4:19:40 PM
 */
-using Rs.App.Core.Sales.Application.Dtos;
+using Rs.App.Core.Sales.Application.ClientModel;
 using Rs.App.Core.Sales.Infra.Repository;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Sales.Events
 {
-    public class SaleAddedEvent : AbstractDomainEvent<SaleAddDto>
+    public class SaleAddedEvent : AbstractDomainEvent<SaleAddClientModel>
     {
         public SaleAddedEvent(IAuditRepository auditRepository) : base(auditRepository)
         {

@@ -10,8 +10,8 @@ using Rs.App.Core.Sales.Infra.Data.Repository;
 namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 {
     [DbContext(typeof(SaleContext))]
-    [Migration("20200206113903_updateModel")]
-    partial class updateModel
+    [Migration("20200207052514_addContext")]
+    partial class addContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.Audit");
+                    b.ToTable("sales.Audits");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Customer", b =>

@@ -30,7 +30,15 @@ namespace Rs.App.Core.Sales.Domain
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            var sb = new StringBuilder();
+            sb.Append("Id:" + Id + ",");
+            this.GetType().GetProperties().ToList().ForEach(x => {
+                var property = x.Name;
+                var value = x.GetValue(this);
+                sb.Append(property + ":" + value);
+                sb.Append(",");
+            });
+            return sb.ToString();
         }
     }
 }

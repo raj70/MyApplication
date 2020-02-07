@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 {
-    public partial class updateModel : Migration
+    public partial class addContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "sales.Audit",
+                name: "sales.Audits",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -17,7 +17,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Audit", x => x.Id);
+                    table.PrimaryKey("PK_sales.Audits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,7 +163,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "sales.Audit");
+                name: "sales.Audits");
 
             migrationBuilder.DropTable(
                 name: "sales.OrderProducts");

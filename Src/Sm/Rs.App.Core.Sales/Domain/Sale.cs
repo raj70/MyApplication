@@ -45,10 +45,6 @@ namespace Rs.App.Core.Sales.Domain
             }
         }
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
     }
 }
 

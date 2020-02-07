@@ -22,7 +22,7 @@ namespace Rs.App.Core.Sales.Application.Services
     {
         Task<Sale> GetSaleAsync(Guid id);
         Task<IEnumerable<Sale>> GetAllSaleAsync(bool isActive);
-        Task<Result> AddAsync(Dtos.SaleAddDto dto);
+        Task<Result> AddAsync(ClientModel.SaleAddClientModel dto);
         Task<Result> ChangeActiveAsync(Guid id);
     }  
 
