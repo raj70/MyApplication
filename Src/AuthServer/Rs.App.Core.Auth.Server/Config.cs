@@ -50,7 +50,19 @@ namespace Rs.App.Core.Auth.Server
                     ClientSecrets = { new Secret("A2F6FA17-962F-471F-93A6-EB0A49BA7110".Sha256()) },
 
                     AllowedScopes = { "openid", "api1" }
-                },                
+                },
+
+                new Client
+                {
+                    ClientId = "sm",
+                    ClientName = "Sales Management",
+
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    RequirePkce = true,
+                    ClientSecrets = { new Secret("F5FD61CA-4CB6-4A65-9FFB-4EF47AC8BC23".Sha256()) },
+
+                    AllowedScopes = { "openid", "api1" }
+                },
             };
     }
 }

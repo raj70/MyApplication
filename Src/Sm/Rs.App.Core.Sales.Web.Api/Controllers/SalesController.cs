@@ -32,9 +32,9 @@ namespace Rs.App.Core.Sales.Web.Api.Controllers
         }
 
         [HttpGet("{salePersonId}", Name = "GetAllSalesFor")]
-        public async Task<IActionResult> GetAll(Guid salePersonId)
+        public async Task<IActionResult> GetAll(Guid salePersonId, bool isActive)
         {
-            var sales = await _saleService.GetAllSaleAsync(salePersonId, isActive: true);
+            var sales = await _saleService.GetAllSaleAsync(salePersonId, isActive);
 
             return Ok(sales);
         }
@@ -54,7 +54,6 @@ namespace Rs.App.Core.Sales.Web.Api.Controllers
         public async Task<IActionResult> Put(Guid salesId, [FromBody] SaleUpdateClientModel saleUpdateDto)
         {
             var result = await _saleService.UpdateSale(salesId, saleUpdateDto);
-
             if (result.IsError)
             {
                 return BadRequest(result);

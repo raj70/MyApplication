@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Rs.App.Core.Sales.Application.ClientModel;
 using Rs.App.Core.Sales.Application.Services;
 using Rs.App.Core.Sales.Events;
+using Rs.App.Core.Sales.Infra.Data.Extensions;
 using Rs.App.Core.Sales.Infra.Data.Repository;
 using Rs.App.Core.Sales.Infra.Repository;
 using Rs.App.Core.Sales.Infra.Validation;
@@ -38,31 +39,18 @@ namespace Rs.App.Core.Sales.Web.Api
                 {
                     o.RegisterValidatorsFromAssemblyContaining<SaleAddModelValidator>();
                 });
-                 
-            
-            services.AddDbContext<SaleContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<SalePersonContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<ProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<OrderContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<CustomerContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<OrderProductContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
-            services.AddDbContext<AuditContext>(o => o.UseSqlServer(Configuration.GetConnectionString("saleConnString")));
 
-            services.AddScoped<ISaleRepository, SaleRepository>();
-            services.AddScoped<ISalePersonRepository, SalePersonRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IOrderProductRepository, OrderProductRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IAuditRepository, AuditRepository>();
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options => {
+                    options.Authority = Configuration.GetValue<string>("AuthHost");
+                    options.RequireHttpsMetadata = false; // for test
 
-            services.AddScoped<IDomainEvent<SaleAddClientModel>, SaleAddedEvent>();
-            //OrderAddClientModel
-            services.AddScoped<IDomainEvent<OrderAddClientModel>, OrderAddedEvent>();
-            services.AddScoped<IDomainEvent<SaleUpdateClientModel>, SaleUpdateEvent>();
+                    options.Audience = "api1";
+                });
 
-            services.AddScoped<ISaleService, SaleService>();
-
+            services.AddAppDbContexts(Configuration);
+            services.AddAppRepositories();
+            services.AddAppServices();
 
             services.AddOpenApiDocument();
         }
