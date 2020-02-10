@@ -31,6 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales.Infra.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Sales.Web.Api", "Src\Sm\Rs.App.Core.Sales.Web.Api\Rs.App.Core.Sales.Web.Api.csproj", "{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{5F8F5537-6AE1-4990-8EB1-BBC701925E24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rs.App.Core.Mvc.Client.Sale", "Src\Clients\Rs.App.Core.Mvc.Client.Sale\Rs.App.Core.Mvc.Client.Sale.csproj", "{CF8B646D-9785-41DF-B1A2-C24471AB016F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF8B646D-9785-41DF-B1A2-C24471AB016F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF8B646D-9785-41DF-B1A2-C24471AB016F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF8B646D-9785-41DF-B1A2-C24471AB016F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF8B646D-9785-41DF-B1A2-C24471AB016F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,7 @@ Global
 		{C2575D3C-59F6-4AB6-B5CA-ED2DC114B6FC} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
 		{E30AD423-7D1F-492C-806F-E99FDA35456B} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
 		{F884062A-0C5C-4EFD-A0C9-6B63D6FA44CE} = {64F7B4C9-CEFE-4F38-B074-53D66F00F0B8}
+		{CF8B646D-9785-41DF-B1A2-C24471AB016F} = {5F8F5537-6AE1-4990-8EB1-BBC701925E24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87E56295-2FE1-46AE-9657-B81A24737DDC}

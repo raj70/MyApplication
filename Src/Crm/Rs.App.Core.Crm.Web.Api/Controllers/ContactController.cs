@@ -15,7 +15,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[AllowAnonymous]
+    [Authorize]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -28,7 +28,6 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         }
         // GET: api/Index
         [HttpGet(Name = "GetContacts")]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<Contact>>> Get()
         {
             var contacts = await _contactService.GetAllAsync(pageIndex: 1);
@@ -38,7 +37,6 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 
         // GET: api/Index/5
         [HttpGet("{id}", Name = "GetContact")]
-        [Authorize]
         public async Task<ActionResult<Contact>> Get(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
@@ -53,7 +51,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
 
         // Add new
         // POST: api/Index
-        [HttpPost(Name ="AddContact")]
+        [HttpPost(Name = "AddContact")]
         public async Task<IActionResult> Post([FromBody] ContactClient contact)
         {
             try
@@ -70,12 +68,12 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             {
                 _logger.LogError(ex, "Error has encounterd");
                 return StatusCode(500);
-            }          
+            }
         }
 
         // update
         // PUT: api/Index/5
-        [HttpPut("{id}", Name ="UpdateContact")]
+        [HttpPut("{id}", Name = "UpdateContact")]
         public async Task<IActionResult> Put(Guid id, [FromBody] ContactUpdate contact)
         {
             try
@@ -88,7 +86,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
                 }
                 return Ok(result);
             }
-            catch(CrmException ex)
+            catch (CrmException ex)
             {
                 _logger.LogError(ex, "Error has encounterd");
                 return StatusCode(500);
@@ -96,7 +94,7 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}", Name ="DeleteContact")]
+        [HttpDelete("{id}", Name = "DeleteContact")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {

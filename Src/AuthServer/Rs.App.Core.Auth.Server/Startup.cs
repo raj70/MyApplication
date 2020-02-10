@@ -64,6 +64,7 @@ namespace Rs.App.Core.Auth.Server
             // Identity Server 4 configuration
             var builder = services.AddIdentityServer(options =>
             {
+                //TODO: need to fix logout; 
                 options.UserInteraction.LoginUrl = "/Identity/Account/Login";
                 options.UserInteraction.LogoutUrl = "/Identity/Account/Logout";
             })

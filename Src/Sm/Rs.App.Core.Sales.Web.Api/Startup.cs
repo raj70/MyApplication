@@ -45,7 +45,7 @@ namespace Rs.App.Core.Sales.Web.Api
                     options.Authority = Configuration.GetValue<string>("AuthHost");
                     options.RequireHttpsMetadata = false; // for test
 
-                    options.Audience = "api1";
+                    options.Audience = "api1_Sm";
                 });
 
             services.AddAppDbContexts(Configuration);
@@ -64,7 +64,7 @@ namespace Rs.App.Core.Sales.Web.Api
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -8,11 +8,13 @@ using Rs.App.Core.Crm.Application.ClientModel;
 using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Application.Services;
 using Rs.App.Core.Crm.Web.Api.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class NoteController : ControllerBase
     {
         private readonly INoteService _noteService;

@@ -23,12 +23,14 @@ namespace Rs.App.Core.Crm.Web.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; private set; }
         public ILogger Logger { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -44,9 +46,11 @@ namespace Rs.App.Core.Crm.Web.Api
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options => {
                     options.Authority = Configuration.GetValue<string>("AuthHost");
-                    options.RequireHttpsMetadata = false; // for test
-
-                    options.Audience = "api1";
+                    if (Environment.IsDevelopment())
+                    {
+                        options.RequireHttpsMetadata = false; // for test
+                    }
+                    options.Audience = "api1_Crm";
                 });
 
             //filters:
@@ -62,6 +66,7 @@ namespace Rs.App.Core.Crm.Web.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddLog4Net();
+
             if (env.IsDevelopment())
             {                
                 app.UseDeveloperExceptionPage();
@@ -76,8 +81,7 @@ namespace Rs.App.Core.Crm.Web.Api
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();
-            
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
