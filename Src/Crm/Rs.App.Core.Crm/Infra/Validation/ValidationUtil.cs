@@ -16,7 +16,7 @@ namespace Rs.App.Core.Crm.Infra.Validation
 {
     public static class ValidationUtil
     {
-        public static bool IsSameAddress(ContactClient contact, string v)
+        public static bool IsSameAddress(ContactAddClient contact, string v)
         {
             return contact.IsDeliverSameAsHomeAddress;
         }

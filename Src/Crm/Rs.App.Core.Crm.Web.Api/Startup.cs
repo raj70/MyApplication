@@ -18,6 +18,8 @@ using Rs.App.Core.Crm.Infra.Validation;
 using Rs.App.Core.Crm.Web.Api.AppConfig;
 using Rs.App.Core.Crm.Web.Api.CustomMiddleware;
 using Rs.App.Core.Crm.Web.Api.Filters;
+using AutoMapper;
+using Rs.App.Core.Crm.Web.Api.Mappings;
 
 namespace Rs.App.Core.Crm.Web.Api
 {
@@ -35,13 +37,17 @@ namespace Rs.App.Core.Crm.Web.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services
-                .AddControllers()                
+                .AddControllers(o=> o.RespectBrowserAcceptHeader = true)
+                .AddXmlSerializerFormatters()   
+                .AddNewtonsoftJson()
                 .AddFluentValidation(opt =>
                 {
                     opt.RegisterValidatorsFromAssemblyContaining<ContactClientModelValidator>();
                 });
+
+            services.AddAutoMapper(typeof(ContactMapping));
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options => {

@@ -10,6 +10,7 @@ using Rs.App.Core.Crm.Domain;
 using Rs.App.Core.Crm.Infra.Exceptions;
 using Rs.App.Core.Crm.Application.Services;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace Rs.App.Core.Crm.Web.Api.Controllers
 {
@@ -18,26 +19,31 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
     [Authorize]
     public class ContactController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IContactService _contactService;
         private readonly ILogger<ContactController> _logger;
 
-        public ContactController(IContactService contactService, ILogger<ContactController> logger)
+        public ContactController(IMapper mapper, IContactService contactService, ILogger<ContactController> logger)
         {
+            _mapper = mapper;
             _contactService = contactService;
             _logger = logger;
         }
         // GET: api/Index
         [HttpGet(Name = "GetContacts")]
-        public async Task<ActionResult<IEnumerable<Contact>>> Get()
+        public async Task<ActionResult<IEnumerable<ContactDetail>>> Get()
         {
             var contacts = await _contactService.GetAllAsync(pageIndex: 1);
 
-            return Ok(contacts);
+            IEnumerable<ContactDetail> cs = new List<ContactDetail>();
+            cs = _mapper.Map<IEnumerable<Contact>, IEnumerable<ContactDetail>>(contacts);
+
+            return Ok(cs);
         }
 
         // GET: api/Index/5
         [HttpGet("{id}", Name = "GetContact")]
-        public async Task<ActionResult<Contact>> Get(Guid id)
+        public async Task<ActionResult<ContactDetail>> Get(Guid id)
         {
             var contact = await _contactService.GetAsync(id);
 
@@ -46,13 +52,15 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(contact);
+            var c = _mapper.Map<ContactDetail>(contact);
+
+            return Ok(c);
         }
 
         // Add new
         // POST: api/Index
         [HttpPost(Name = "AddContact")]
-        public async Task<IActionResult> Post([FromBody] ContactClient contact)
+        public async Task<IActionResult> Post([FromBody] ContactAddClient contact)
         {
             try
             {

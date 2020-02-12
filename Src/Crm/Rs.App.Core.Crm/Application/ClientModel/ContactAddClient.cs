@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Application.ClientModel
 {
-    public sealed class ContactClient : ClientModel.ContactUpdate
+    public sealed class ContactAddClient : ClientModel.ContactUpdate
     {
-        public ContactClient()
+        public ContactAddClient()
         {
 
         }

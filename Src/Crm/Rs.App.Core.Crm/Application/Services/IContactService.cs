@@ -25,7 +25,7 @@ namespace Rs.App.Core.Crm.Application.Services
         Task<IEnumerable<Contact>> GetAllAsync(int pageIndex, int pageSize = 10);
         Task<IEnumerable<Contact>> GetAllAsync();
         Task<Contact> GetAsync(Guid id);
-        Task<Result> AddedAsync(ContactClient contactClient);
+        Task<Result> AddedAsync(ContactAddClient contactClient);
         Task<Result> UpdateAsync(Guid id, ContactUpdate contact);
         Task<Result> DeleteAsync(Guid id);
     }

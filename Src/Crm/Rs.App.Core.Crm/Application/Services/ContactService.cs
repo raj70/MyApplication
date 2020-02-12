@@ -44,14 +44,14 @@ namespace Rs.App.Core.Crm.Application.Services
         public async Task<Contact> GetAsync(Guid id)
         {
             var contact = await Task.Run(() =>
-           {
-               var contact = _contactRepository.Get(id);
-               if (!contact.IsDeliverSameAsHomeAddress)
-               {
-                   contact.DeliveryAddress = GetDeliveryAddress(contact);
-               }
-               return _contactRepository.Get(id);
-           });
+            {
+                var contact = _contactRepository.Get(id);
+                if (!contact.IsDeliverSameAsHomeAddress)
+                {
+                    contact.DeliveryAddress = GetDeliveryAddress(contact);
+                }
+                return _contactRepository.Get(id);
+            });
             return contact;
         }
 
@@ -80,7 +80,7 @@ namespace Rs.App.Core.Crm.Application.Services
             return contacts;
         }
 
-        public async Task<Result> AddedAsync(ContactClient contactClient)
+        public async Task<Result> AddedAsync(ContactAddClient contactClient)
         {
             var result = new Result();
             await Task.Run(() =>
@@ -178,7 +178,7 @@ namespace Rs.App.Core.Crm.Application.Services
                     {
                         var titles = _titleRepository.GetAll();
                         result.Message = $"Provided title is not supported: Supported titles: {string.Join(", ", titles)}";
-                        result.StatuCode = 400;                        
+                        result.StatuCode = 400;
                     }
                     else
                     {
@@ -189,13 +189,13 @@ namespace Rs.App.Core.Crm.Application.Services
                         {
                             _contactRepository.Update(id, c);
                         }
-                        catch(CrmException ex)
+                        catch (CrmException ex)
                         {
                             result.IsError = true;
                             result.Message = ex.Message;
                             result.StatuCode = 400;
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             throw;
                         }

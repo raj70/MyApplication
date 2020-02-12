@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Crm.Infra.Validation
 {
-    public class ContactClientModelValidator : AbstractValidator<ContactClient>
+    public class ContactClientModelValidator : AbstractValidator<ContactAddClient>
     {
         public ContactClientModelValidator()
         {

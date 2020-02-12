@@ -37,6 +37,13 @@ namespace Rs.App.Core.Crm.Web.Api.Controllers
             return Ok(addresses);
         }
 
+        [HttpGet("{id}", Name = "GetAddress")]
+        public async Task<Address> Get(Guid id)
+        {
+            var address = await _addressService.GetAddress(id);
+            return address;
+        }
+
         [HttpDelete(Name ="DeleteNotUsed")]
         public async Task<IActionResult> Delete(Guid id)
         {
