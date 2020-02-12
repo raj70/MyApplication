@@ -14,7 +14,6 @@ namespace Rs.App.Core.Crm.Web.Api.Mappings
         {
             
             CreateMap<Contact, ContactDetail>();
-            // CreateMap<IEnumerable<Contact>, IEnumerable<ContactDetail>>(); // bad line throw exception from AutoMapper
         }
     }
 }

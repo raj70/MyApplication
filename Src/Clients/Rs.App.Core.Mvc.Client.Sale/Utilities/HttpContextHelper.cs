@@ -15,7 +15,8 @@ namespace Rs.App.Core.Mvc.Client.Sale.Utilities
         {
             var apiClient = new HttpClient();
             var accessToken = await httpContext.GetTokenAsync("access_token");
-            apiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);          
+            apiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             return apiClient;
         }

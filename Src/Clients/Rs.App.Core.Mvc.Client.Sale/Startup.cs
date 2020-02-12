@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rs.App.Core.Mvc.Client.Sale.Middleweres;
 
 namespace Rs.App.Core.Mvc.Client.Sale
 {
@@ -69,33 +70,20 @@ namespace Rs.App.Core.Mvc.Client.Sale
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSameSiteMiddleware();
 
             app.UseMvc(routes =>
             {
                 routes.MapAreaRoute(
                   name: "Crms",
                   areaName: "Crms",
-                  template: "Crms/{controller}/{action=Index}/{id?}"
+                  template: "Crms/{controller=Customer}/{action=Index}/{id?}"
                 );
 
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapAreaControllerRoute(
-            //       name: "crms",
-            //       areaName: "Crms",
-            //       pattern: "Crms/{controller=Customer}/{action}/{id}");
-
-            //    endpoints.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");
-            //    endpoints.MapDefaultControllerRoute().RequireAuthorization();
-
-            //});
         }
     }
 }

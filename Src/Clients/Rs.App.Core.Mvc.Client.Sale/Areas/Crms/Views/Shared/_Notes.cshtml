@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel.Note>
+
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("_Note.cshtml", item)
+}
+
+
+
+

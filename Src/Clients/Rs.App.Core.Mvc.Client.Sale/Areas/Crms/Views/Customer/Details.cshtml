@@ -1,0 +1,176 @@
+﻿@using Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel
+
+@model Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel.CustomerDetail
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Customer Detail</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <dl>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MiddleName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MobileNumber)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MobileNumber)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EmailAddress)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsActive)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Dob)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Dob)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Dod)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Dod)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h6>Home Address</h6>
+                    <input type="hidden" id="homeAddressId" value=@Model.HomeAddressId>
+                    <div id="homeAddress"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h6>Delivery Address</h6>
+                    <input type="hidden" id="deliveryAddressId" value=@Model.DeliveryAddressId>
+                    <div id="deliveryAddress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h6>Notes</h6>
+    </div>
+    <div class="row">
+        <input id="customerId" type="hidden" value="@Model.Id" />
+        <div id="notes" class="col-sm-10">
+        </div>
+    </div>
+</div>
+<div>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            var homeId = $("#homeAddressId").val();
+            var deliveryId = $("#deliveryAddressId").val();
+
+            $("#homeAddressId").ready(function () {
+
+                $.ajax({
+                    url: "/address/Details/",
+                    type: "GET",
+                    dataType: "html",
+                    data: { id: homeId }
+                }).done(function (result) {
+                    $("#homeAddress").html(result);
+                }).fail(function (status, message) {
+                    // todo: dialog
+                    alert(status);
+                });
+            });
+            $("#deliveryAddressId").ready(function () {
+                if (homeId !== deliveryId) {
+                    $.ajax({
+                        url: "/address/Details/",
+                        type: "GET",
+                        dataType: "html",
+                        data: { id: deliveryId }
+                    }).done(function (result) {
+                        $("#deliveryAddress").html(result);
+                    }).fail(function (status, message) {
+                        // todo: dialog
+                        alert(status);
+                    });
+                }
+                else {
+                    $("#deliveryAddress").html("Same as Home Address");
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#customerId").ready(function () {
+                var customerId = $("#customerId").val();
+                $.ajax({
+                    url: "/Note/GetAll/",
+                    type: "GET",
+                    dataType: "html",
+                    data: { customerId },
+                    async: false,
+                }).done(function (result) {
+                    $("#notes").html(result);
+                }).fail(function (status, message) {
+                    // todo: dialog
+                    alert(status);
+                });
+            });
+        });
+    </script>
+}
+

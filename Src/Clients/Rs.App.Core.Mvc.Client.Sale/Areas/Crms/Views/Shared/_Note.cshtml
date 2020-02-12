@@ -1,0 +1,13 @@
+﻿@model Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel.Note
+
+    <div class="noteHeader">
+        <div>@Html.DisplayFor(x => x.CreatedDate)</div>
+        <div class="middle">@Html.DisplayFor(x => x.UpdatedDate)</div>
+        <div class="left">@Html.DisplayFor(x => x.IsDeleted)</div>
+        <div class="noteNote">
+            @Html.TextAreaFor(x => x.ShortNote)
+        </div>
+        <div class="noteFooter">
+            @@ Notes by Author
+        </div>
+    </div>
