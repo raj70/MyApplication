@@ -29,11 +29,6 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.Controllers
                 var values = responseMessage.Content.ReadAsStringAsync();
                 notes = JsonConvert.DeserializeObject<IEnumerable<Note>>(values.Result);
             }
-            else
-            {
-                //Todo: fix this
-                return BadRequest("Error has encountered");
-            }
             return PartialView("/Areas/Crms/Views/Shared/_Notes.cshtml", notes);
         }
     }

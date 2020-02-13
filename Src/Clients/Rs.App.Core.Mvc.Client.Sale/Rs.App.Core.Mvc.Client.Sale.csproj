@@ -15,6 +15,7 @@
   <ItemGroup>
     <Folder Include="Areas\Crms\Data\" />
     <Folder Include="Areas\Crms\Models\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 

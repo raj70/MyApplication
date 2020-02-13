@@ -25,6 +25,7 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.Controllers
         {
             _configuration = configuration;
         }
+
         // GET: Customer
         public async Task<ActionResult> Index()
         {
@@ -36,11 +37,6 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.Controllers
             {
                 var values = responseMessage.Content.ReadAsStringAsync();
                 contacts = JsonConvert.DeserializeObject<IEnumerable<CustomerDetail>>(values.Result);
-            }
-            else
-            {
-                //Todo: fix this
-                return BadRequest("Error has encountered");
             }
             return View(contacts);
         }

@@ -19,7 +19,7 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.Controllers
         {
             _configuration = configuration;
         }
-        
+
 
         // GET: Address/Details/5
         public async Task<ActionResult> Details(Guid id)
@@ -32,11 +32,6 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.Controllers
             {
                 var values = responseMessage.Content.ReadAsStringAsync();
                 address = JsonConvert.DeserializeObject<Address>(values.Result);
-            }
-            else
-            {
-                //Todo: fix this
-                return BadRequest("Error has encountered");
             }
             return PartialView("/Areas/Crms/Views/Shared/_Address.cshtml", address);
         }

@@ -20,7 +20,10 @@ namespace Rs.App.Core.Mvc.Client.Sale.Middleweres
         public Task Invoke(HttpContext httpContext)
         {
             // TODO: need more info
-            httpContext.Response.Headers.Add("Set-Cookie", "Secure;SameSite=Strict");
+            if (!httpContext.Response.Headers.ContainsKey("Set-Cookie"))
+            {
+                httpContext.Response.Headers.Add("Set-Cookie", "Secure;SameSite=Strict");
+            }
             return _next(httpContext);
         }
     }

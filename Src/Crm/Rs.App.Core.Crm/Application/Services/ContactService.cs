@@ -46,6 +46,11 @@ namespace Rs.App.Core.Crm.Application.Services
             var contact = await Task.Run(() =>
             {
                 var contact = _contactRepository.Get(id);
+                // Todo: NEED TO FIx this
+                if(contact == null)
+                {
+                    return new Contact();
+                }
                 if (!contact.IsDeliverSameAsHomeAddress)
                 {
                     contact.DeliveryAddress = GetDeliveryAddress(contact);
