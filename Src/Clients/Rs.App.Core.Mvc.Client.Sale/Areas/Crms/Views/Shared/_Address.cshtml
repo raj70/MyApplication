@@ -1,5 +1,11 @@
 ﻿@model Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel.Address
 
+@if (Model.GetType().GetProperty("ErrorMessage") != null)
+{
+    <div class="alert-danger">
+        @Model.GetType().GetProperty("ErrorMessage").GetValue(@Model);
+    </div>
+}
 <div>
     <dl>
         <dt class="col-sm-2">

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rs.App.Core.Mvc.Client.Sale.Filters;
 using Rs.App.Core.Mvc.Client.Sale.Middleweres;
 
 namespace Rs.App.Core.Mvc.Client.Sale
@@ -23,10 +24,13 @@ namespace Rs.App.Core.Mvc.Client.Sale
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             services.AddControllersWithViews(o=> {
                 o.EnableEndpointRouting = false;
+                o.Filters.Add(typeof(OwnerInfoActionFilter));
             });
+            services.AddScoped<ServerErrorPartialViewActionFilter>();
+
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
             services.AddAuthentication(options =>
             {

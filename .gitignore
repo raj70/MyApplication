@@ -343,3 +343,5 @@ healthchecksdb
 /Src/Pm/Rs.App.Core.Pm.Infra.Data/PmMigrations
 /Src/AuthServer/Rs.App.Core.Auth.Server/json1.json
 /Src/Crm/Rs.App.Core.Crm.Web.Api/example.log.*
+/Src/Clients/Rs.App.Core.Mvc.Client.Sale/Exceptions/ServerErrorPartialViewException.cs
+/Src/Clients/Rs.App.Core.Mvc.Client.Sale/Filters/ServerErrorPartialViewActionFilter.cs

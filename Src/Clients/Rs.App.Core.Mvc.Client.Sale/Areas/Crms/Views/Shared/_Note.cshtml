@@ -5,7 +5,7 @@
         <div class="middle">@Html.DisplayFor(x => x.UpdatedDate)</div>
         <div class="left">@Html.DisplayFor(x => x.IsDeleted)</div>
         <div class="noteNote">
-            @Html.TextAreaFor(x => x.ShortNote)
+            @Html.TextAreaFor(x => x.ShortNote, new { @class = "noteArea"} )
         </div>
         <div class="noteFooter">
             @@ Notes by Author
