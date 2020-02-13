@@ -84,7 +84,6 @@
                     <input type="hidden" id="homeAddressId" value=@Model.HomeAddressId>
                     <div id="homeAddress"></div>
                 </div>
-            
                 <div class="col-sm-6">
                     <h6>Delivery Address</h6>
                     <input type="hidden" id="deliveryAddressId" value=@Model.DeliveryAddressId>
@@ -111,38 +110,36 @@
 </div>
 
 @section scripts{
+    @* functions *@
+    <script type="text/javascript">
+        function getDataAsync(url, content, data) {
+            $.ajax({
+                url,
+                type: "GET",
+                dataType: "html",
+                data: data
+            }).done(function (result) {
+                content.html(result);
+            }).fail(function (status, message) {
+                console.log(status + " " + message);
+                content.html("<div id='error' class='alert alert-danger'>Error has encountered while retrieving data from server</div>");
+            });
+        }
+    </script>
+
+    @* Ajax for addresses *@
     <script type="text/javascript">
         $(function () {
             var homeId = $("#homeAddressId").val();
             var deliveryId = $("#deliveryAddressId").val();
 
             $("#homeAddressId").ready(function () {
-
-                $.ajax({
-                    url: "/address/Details/",
-                    type: "GET",
-                    dataType: "html",
-                    data: { id: homeId }
-                }).done(function (result) {
-                    $("#homeAddress").html(result);
-                }).fail(function (status, message) {
-                    // todo: dialog
-                    alert(status);
-                });
+                getDataAsync("/address/Details/", $("#homeAddress"), { id: homeId });
             });
             $("#deliveryAddressId").ready(function () {
+
                 if (homeId !== deliveryId) {
-                    $.ajax({
-                        url: "/address/Details/",
-                        type: "GET",
-                        dataType: "html",
-                        data: { id: deliveryId }
-                    }).done(function (result) {
-                        $("#deliveryAddress").html(result);
-                    }).fail(function (status, message) {
-                        // todo: dialog
-                        alert(status);
-                    });
+                    getDataAsync("/address/Details/", $("#deliveryAddress"), { id: deliveryId });
                 }
                 else {
                     $("#deliveryAddress").html("Same as Home Address");
@@ -151,23 +148,13 @@
         });
     </script>
 
+    @* Ajax for Notes *@
     <script type="text/javascript">
         $(function () {
-
             $("#customerId").ready(function () {
                 var customerId = $("#customerId").val();
-                $.ajax({
-                    url: "/Note/GetAll/",
-                    type: "GET",
-                    dataType: "html",
-                    data: { customerId },
-                    async: false,
-                }).done(function (result) {
-                    $("#notes").html(result);
-                }).fail(function (status, message) {
-                    // todo: dialog
-                    alert(status);
-                });
+                getDataAsync("/Note/GetAll/", $("#notes"), { customerId });
+
             });
         });
     </script>
