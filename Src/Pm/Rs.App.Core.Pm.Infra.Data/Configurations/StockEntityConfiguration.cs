@@ -7,31 +7,28 @@
 * [4.0.30319.42000]
 * Author: rajen.shrestha 
 * Machine: RAJDEVMAC
-* Time: 2/5/2020 10:35:39 PM
+* Time: 1/22/2020 4:28:07 PM
 */
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Rs.App.Core.Sales.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Rs.App.Core.Pm.Domain;
 
-namespace Rs.App.Core.Sales.Infra.Data.Configurations
+namespace Rs.App.Core.Pm.Infra.Configurations
 {
-    public class AuditEntityConfiguration : IEntityTypeConfiguration<Audit>
+    public class StockEntityConfiguration : IEntityTypeConfiguration<Stock>
     {
-        public AuditEntityConfiguration()
+        public StockEntityConfiguration()
         {
 
         }
 
-        public void Configure(EntityTypeBuilder<Audit> builder)
+        public void Configure(EntityTypeBuilder<Stock> builder)
         {
-            builder.ToTable("Audits", "dbo.Sale");
+            builder.ToTable(nameof(Stock) + "s", "dbo.Pm");
+            builder.Property(nameof(Stock.Id)).IsRequired(true);
         }
     }
 
 }
+
 

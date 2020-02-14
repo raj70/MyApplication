@@ -29,7 +29,7 @@ namespace Rs.App.Core.Sales.Infra.Data.Configurations
 
         public void Configure(EntityTypeBuilder<SalePerson> builder)
         {
-            builder.ToTable("sales.SalePeople");
+            builder.ToTable("SalePeople", "dbo.Sale");
             builder.Property(nameof(SalePerson.Id)).IsRequired(true);
             builder.Property(nameof(SalePerson.ContactId)).IsRequired(true);
         }

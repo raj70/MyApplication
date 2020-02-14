@@ -30,6 +30,7 @@ namespace Rs.App.Core.Crm.Domain
         public string State { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public string PostalCode { get; set; } = string.Empty;
+        
 
         public override bool Equals(object obj)
         {
@@ -55,5 +56,8 @@ namespace Rs.App.Core.Crm.Domain
         {
             return $"{Line1};{Line2};{Line3};{City};{State};{Country};{PostalCode}";
         }
+
+        public virtual Company Company { get; set; }
+        public virtual Company DeliveryCompany { get; set; }
     }
 }

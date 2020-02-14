@@ -10,8 +10,8 @@ using Rs.App.Core.Sales.Infra.Data.Repository;
 namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 {
     [DbContext(typeof(SaleContext))]
-    [Migration("20200207052514_addContext")]
-    partial class addContext
+    [Migration("20200214115344_SalesMigration")]
+    partial class SalesMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.Audits");
+                    b.ToTable("Audits","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Customer", b =>
@@ -52,7 +52,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.Customers");
+                    b.ToTable("Customers","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Order", b =>
@@ -71,7 +71,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasIndex("SaleId");
 
-                    b.ToTable("sales.Orders");
+                    b.ToTable("Orders","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.OrderProduct", b =>
@@ -95,7 +95,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("sales.OrderProducts");
+                    b.ToTable("OrderProducts","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Product", b =>
@@ -112,7 +112,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.Products");
+                    b.ToTable("Products","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Sale", b =>
@@ -149,7 +149,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasIndex("SalePersonId");
 
-                    b.ToTable("sales.Sales");
+                    b.ToTable("Sales","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.SalePerson", b =>
@@ -166,7 +166,7 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sales.SalePeople");
+                    b.ToTable("SalePeople","dbo.Sale");
                 });
 
             modelBuilder.Entity("Rs.App.Core.Sales.Domain.Order", b =>

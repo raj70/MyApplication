@@ -24,19 +24,22 @@ namespace Rs.App.Core.Crm.Infra.Configurations
     {
         public AddressEntityConfiguration()
         {
-           
+
 
         }
 
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable(nameof(Address) + "s");
+            builder.ToTable(nameof(Address) + "s", "dbo.Crms");
             builder.HasKey(nameof(Address.Id));
             builder.Property(nameof(Address.Id)).ValueGeneratedOnAdd();
 
+            builder.Ignore(nameof(Address.Company));
+            builder.Ignore(nameof(Address.DeliveryCompany));
+
             builder.Property(nameof(Address.Line1)).HasMaxLength(150).IsRequired();
             builder.Property(nameof(Address.City)).HasMaxLength(50).IsRequired();
-            builder.Property(nameof(Address.Country)).HasMaxLength(50).IsRequired();           
+            builder.Property(nameof(Address.Country)).HasMaxLength(50).IsRequired();
         }
     }
 }

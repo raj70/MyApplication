@@ -36,6 +36,7 @@ namespace Rs.App.Core.Crm.Infra.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new CompanyEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ContactEntityConfiguration());
             modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
             modelBuilder.ApplyConfiguration(new TitleEntityConfiguration());

@@ -24,7 +24,7 @@ namespace Rs.App.Core.Crm.Infra.Configurations
     {
         public void Configure(EntityTypeBuilder<Title> builder)
         {
-            builder.ToTable(nameof(Title) + "s");
+            builder.ToTable(nameof(Title) + "s", "dbo.Crms");
 
             builder.HasKey(nameof(Title.Id));
             builder.Property(nameof(Title.Id)).ValueGeneratedOnAdd();

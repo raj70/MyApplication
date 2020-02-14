@@ -29,6 +29,7 @@ namespace Rs.App.Core.Crm.Domain
         public Guid AddressId { get; set; }
         public Guid DeliveryAddressId { get; set; }
         public Guid TitleId { get; set; }
+        public Guid? CompanyId { get; set; }
         public string Name { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -43,7 +44,6 @@ namespace Rs.App.Core.Crm.Domain
 
         public DateTime? Dob { get; set; } = DateTime.Now.AddYears(-18);
         public DateTime? Dod { get; set; }
-
         public bool IsDeliverSameAsHomeAddress
         {
             get
@@ -51,11 +51,12 @@ namespace Rs.App.Core.Crm.Domain
                 return AddressId.Equals(DeliveryAddressId);
             }
         }
-
         // not mapped
         public virtual Address DeliveryAddress { get; set; }
         public virtual Address HomeAddress { get; set; }
         public virtual Title Title { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual Company CompanyContacts { get; set; }
 
         // one contact can have more notes
         public virtual ICollection<Note> Notes { get; set; }

@@ -30,7 +30,7 @@ namespace Rs.App.Core.Sales.Infra.Data.Configurations
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.Property(nameof(Customer.ContactId)).IsRequired(true);
-            builder.ToTable("sales.Customers");
+            builder.ToTable("Customers", "dbo.Sale");
         }
     }
 

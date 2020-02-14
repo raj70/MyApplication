@@ -23,7 +23,8 @@ namespace Rs.App.Core.Pm.Domain
         {
 
         }
-
+        // from your crm
+        public Guid CompanyId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -32,7 +33,7 @@ namespace Rs.App.Core.Pm.Domain
         public Units Unit { get; set; }
         public override string ToString()
         {
-            return $"{nameof(Product)}: {Id}: {Name}-{Description}-{Cost}-{CreatedDate}";
+            return $"{nameof(Product)}: {Id}: {CompanyId} {Name}-{Description}-{Cost}-{CreatedDate}";
         }
     }
 }

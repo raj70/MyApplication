@@ -25,7 +25,7 @@ namespace Rs.App.Core.Crm.Infra.Configurations
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {
-            builder.ToTable(nameof(Contact) + "s");
+            builder.ToTable(nameof(Contact) + "s", "dbo.Crms");
             builder.HasKey(nameof(Contact.Id)); 
 
             builder.Property(nameof(Contact.Id)).ValueGeneratedOnAdd();
@@ -39,6 +39,7 @@ namespace Rs.App.Core.Crm.Infra.Configurations
             builder.Property(nameof(Contact.Dod)).HasColumnType(nameof(DateTime.Now.Date));
             builder.Property(nameof(Contact.IsActive)).HasDefaultValue(true);
 
+            builder.Ignore(nameof(Contact.Company));
             builder.Ignore(nameof(Contact.DeliveryAddress));
             builder.Ignore(nameof(Contact.IsDeliverSameAsHomeAddress));
         }

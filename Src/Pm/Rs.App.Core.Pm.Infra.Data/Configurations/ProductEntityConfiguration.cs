@@ -29,6 +29,7 @@ namespace Rs.App.Core.Pm.Infra.Configurations
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.ToTable(nameof(Product) + "s", "dbo.Pm");
             builder.Property(p => p.Cost).HasColumnType("decimal(18,4)");
             builder.Property(p => p.Name).IsRequired(true);
             builder.Property(p => p.Description).IsRequired(true);
@@ -36,6 +37,7 @@ namespace Rs.App.Core.Pm.Infra.Configurations
             builder.Property(p => p.IsActive).HasDefaultValue(true);
         }
     }
+
 }
 
 

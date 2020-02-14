@@ -3,12 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rs.App.Core.Sales.Infra.Data.sMigrations
 {
-    public partial class addContext : Migration
+    public partial class SalesMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo.Sale");
+
             migrationBuilder.CreateTable(
-                name: "sales.Audits",
+                name: "Audits",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -17,11 +21,12 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Audits", x => x.Id);
+                    table.PrimaryKey("PK_Audits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.Customers",
+                name: "Customers",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -30,11 +35,12 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Customers", x => x.Id);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.Products",
+                name: "Products",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -43,11 +49,12 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.SalePeople",
+                name: "SalePeople",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -56,11 +63,12 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.SalePeople", x => x.Id);
+                    table.PrimaryKey("PK_SalePeople", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.Sales",
+                name: "Sales",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -74,23 +82,26 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Sales", x => x.Id);
+                    table.PrimaryKey("PK_Sales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_sales.Sales_sales.Customers_CustomerId",
+                        name: "FK_Sales_Customers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "sales.Customers",
+                        principalSchema: "dbo.Sale",
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_sales.Sales_sales.SalePeople_SalePersonId",
+                        name: "FK_Sales_SalePeople_SalePersonId",
                         column: x => x.SalePersonId,
-                        principalTable: "sales.SalePeople",
+                        principalSchema: "dbo.Sale",
+                        principalTable: "SalePeople",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.Orders",
+                name: "Orders",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -99,17 +110,19 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.Orders", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_sales.Orders_sales.Sales_SaleId",
+                        name: "FK_Orders_Sales_SaleId",
                         column: x => x.SaleId,
-                        principalTable: "sales.Sales",
+                        principalSchema: "dbo.Sale",
+                        principalTable: "Sales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "sales.OrderProducts",
+                name: "OrderProducts",
+                schema: "dbo.Sale",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -119,69 +132,83 @@ namespace Rs.App.Core.Sales.Infra.Data.sMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sales.OrderProducts", x => x.Id);
+                    table.PrimaryKey("PK_OrderProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_sales.OrderProducts_sales.Orders_OrderId",
+                        name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "sales.Orders",
+                        principalSchema: "dbo.Sale",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_sales.OrderProducts_sales.Products_ProductId",
+                        name: "FK_OrderProducts_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "sales.Products",
+                        principalSchema: "dbo.Sale",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_sales.OrderProducts_OrderId",
-                table: "sales.OrderProducts",
+                name: "IX_OrderProducts_OrderId",
+                schema: "dbo.Sale",
+                table: "OrderProducts",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sales.OrderProducts_ProductId",
-                table: "sales.OrderProducts",
+                name: "IX_OrderProducts_ProductId",
+                schema: "dbo.Sale",
+                table: "OrderProducts",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sales.Orders_SaleId",
-                table: "sales.Orders",
+                name: "IX_Orders_SaleId",
+                schema: "dbo.Sale",
+                table: "Orders",
                 column: "SaleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sales.Sales_CustomerId",
-                table: "sales.Sales",
+                name: "IX_Sales_CustomerId",
+                schema: "dbo.Sale",
+                table: "Sales",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sales.Sales_SalePersonId",
-                table: "sales.Sales",
+                name: "IX_Sales_SalePersonId",
+                schema: "dbo.Sale",
+                table: "Sales",
                 column: "SalePersonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "sales.Audits");
+                name: "Audits",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.OrderProducts");
+                name: "OrderProducts",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.Orders");
+                name: "Orders",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.Products");
+                name: "Products",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.Sales");
+                name: "Sales",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.Customers");
+                name: "Customers",
+                schema: "dbo.Sale");
 
             migrationBuilder.DropTable(
-                name: "sales.SalePeople");
+                name: "SalePeople",
+                schema: "dbo.Sale");
         }
     }
 }

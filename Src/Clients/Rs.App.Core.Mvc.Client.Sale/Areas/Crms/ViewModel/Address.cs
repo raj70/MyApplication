@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Rs.App.Core.Mvc.Client.Sale.Areas.Crms.ViewModel
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
+        [Display(Name="Postal Code")]
         public string PostalCode { get; set; } = string.Empty;
     }
 }
