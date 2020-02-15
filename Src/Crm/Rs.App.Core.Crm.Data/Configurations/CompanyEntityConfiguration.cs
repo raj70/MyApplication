@@ -34,17 +34,16 @@ namespace Rs.App.Core.Crm.Infra.Configurations
             builder.Property(nameof(Company.Id)).ValueGeneratedOnAdd();
             builder.Property(nameof(Company.AddressId)).IsRequired(true);
 
-            builder.HasOne(x => x.ContactPerson).WithOne(x => x.Company);//.HasForeignKey<Company>(x => x.ContactPersonId);
-            builder.HasMany(x => x.Contacts).WithOne(x => x.CompanyContacts);
+            builder.HasOne(x => x.ContactPerson).WithOne(x => x.Company).HasForeignKey<Company>(x => x.ContactPersonId);
+            builder.HasMany(x => x.Contacts).WithOne(x => x.CompanyContacts);//.HasForeignKey<Company>(x => x.CompanyId);
 
             builder.HasOne(x => x.Address).WithOne(x => x.Company).HasForeignKey<Company>(x => x.AddressId);
             builder.HasOne(x => x.DeliveryAddress).WithOne(x => x.DeliveryCompany).HasForeignKey<Company>(x => x.DeliveryAddressId);
             builder.Property(nameof(Company.BusinessNumber))
                 .IsRequired(true)
                 .HasMaxLength(25);
-            builder.Property(nameof(Company.ContactPersonId))
-               .IsRequired(true)
-               .HasMaxLength(15);
+
+            builder.Ignore(nameof(Company.ContactPersonId));
         }
     }
 

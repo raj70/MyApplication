@@ -57,7 +57,6 @@ namespace Rs.App.Core.Crm.Domain
         public virtual Title Title { get; set; }
         public virtual Company Company { get; set; }
         public virtual Company CompanyContacts { get; set; }
-
         // one contact can have more notes
         public virtual ICollection<Note> Notes { get; set; }
 

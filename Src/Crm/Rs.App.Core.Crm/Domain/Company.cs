@@ -26,7 +26,6 @@ namespace Rs.App.Core.Crm.Domain
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AddressId { get; set; }
         public Guid? DeliveryAddressId { get; set; }
-        public Guid ContactId { get; set; }
         public Guid ContactPersonId { get; set; }
         public string Name { get; set; }
         /// <summary>
@@ -34,7 +33,7 @@ namespace Rs.App.Core.Crm.Domain
         /// </summary>
         public string BusinessNumber { get; set; }
         public string PhoneNumber { get; set; }
-
+        public bool IsActive { get; set; }
         public virtual Address DeliveryAddress { get; set; }
         public virtual Address Address { get; set; }
         public virtual Contact ContactPerson { get; set; }

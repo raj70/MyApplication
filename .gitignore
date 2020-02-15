@@ -345,3 +345,4 @@ healthchecksdb
 /Src/Crm/Rs.App.Core.Crm.Web.Api/example.log.*
 /Src/Clients/Rs.App.Core.Mvc.Client.Sale/Exceptions/ServerErrorPartialViewException.cs
 /Src/Clients/Rs.App.Core.Mvc.Client.Sale/Filters/ServerErrorPartialViewActionFilter.cs
+/Src/Clients/Rs.App.Core.Mvc.Client.Sale/Areas/Crms/ViewModel/CustomerAdd.cs
