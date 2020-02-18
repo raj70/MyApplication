@@ -10,6 +10,7 @@ namespace Rs.App.Core.Auth.Server
     // https://identityserver4.readthedocs.io/en/release/quickstarts/1_client_credentials.html
     public class Config
     {
+        public static string ClientSaleUrl { get; set; }
         public static IEnumerable<IdentityResource> Ids =>
            new IdentityResource[]
            {
@@ -74,8 +75,8 @@ namespace Rs.App.Core.Auth.Server
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris = { "http://localhost:5996/signin-oidc" },
-                    PostLogoutRedirectUris  = { "http://localhost:5996/signout-callback-oidc"  },
+                    RedirectUris = { $"{ClientSaleUrl}/signin-oidc" },
+                    PostLogoutRedirectUris  = { $"{ClientSaleUrl}/signout-callback-oidc"  },
 
                      AllowedScopes = new List<string>
                      {

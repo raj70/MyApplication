@@ -60,5 +60,12 @@ namespace Rs.App.Core.Auth.Server.Controllers
 
             return View("Error", vm);
         }
+
+        public IActionResult ErrorIdentity()
+        {
+            var vm = new ErrorViewModel("404: Not supported request");
+
+            return View("Error", vm);
+        }
     }
 }

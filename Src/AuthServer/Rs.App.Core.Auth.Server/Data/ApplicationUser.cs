@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rs.App.Core.Auth.Server.Data
 {
-    public enum UserStatus { Submitted, Approved, Rejected }
+    public enum EnumUserStatus { Submitted, Approved, Rejected }
+    public enum EnumUserType { Saler, Buyer, Employee}
     public class ApplicationUser : IdentityUser<Guid>
     {
         public ApplicationUser() : base()
@@ -18,7 +19,9 @@ namespace Rs.App.Core.Auth.Server.Data
         /// </summary>
         public Guid ContactId { get; set; }
 
-        public UserStatus Status { get; set; }
+        public EnumUserType UserType { get; set; }
+
+        public EnumUserStatus Status { get; set; }
 
         public Guid? ParentUserId { get; set; }
     }

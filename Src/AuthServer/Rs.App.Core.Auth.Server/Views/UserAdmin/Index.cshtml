@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Rs.App.Core.Auth.Server.Data.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEnabled)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LockoutEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LockoutEnabled)
+                </td>
+                <td>
+                    @Html.ActionLink("Approve", "Approve", "UserAdmin", new { userName = item.UserName }, new { @class = "btn btn-primary" } )
+                    @*<button class="btn btn-primary" data-username="@item.UserName">Approve</button>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(() => {
+
+            function approve(userName) {
+                $.ajax({
+                    type: 'Post',
+                    dataType: "application/json",
+                    data: { userName },
+                    dataType: "application/json",
+                    async: true,
+                    url: "/UserAdmin/Approve"
+                }).done(result => {
+                    console.log("success", result);
+                    $(".table").load("/UserAdmin");
+                }).fail((s, e) => {
+                    console.log("fail", s);                   
+                    console.log("fail", e);
+                })
+            };
+
+
+            $("button").on("click", function (e) {           
+                var userName = $(this).data("username");
+                console.log(userName);
+                if (userName !== null) {
+                    approve(userName);
+                }
+               
+            })
+
+            
+        });
+    </script>
+}

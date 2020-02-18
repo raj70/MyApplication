@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Rs.App.Core.Auth.Server.Data;
+using Rs.App.Core.Auth.Server.Middlewares;
 
 namespace Rs.App.Core.Auth.Server
 {
@@ -55,18 +56,21 @@ namespace Rs.App.Core.Auth.Server
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
-
+                
                 // user settings
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
+
+                //options.Stores.ProtectPersonalData = true;                
             });
 
+            Config.ClientSaleUrl = Configuration.GetValue<string>("mvcClientSale");
             // Identity Server 4 configuration
             var builder = services.AddIdentityServer(options =>
             {
                 //TODO: need to fix logout; 
                 options.UserInteraction.LoginUrl = "/Identity/Account/Login";
-                options.UserInteraction.LogoutUrl = "/Identity/Account/Logout";
+                options.UserInteraction.LogoutUrl = "/Identity/Account/Logout";                
             })
             .AddInMemoryIdentityResources(Config.Ids)
             .AddInMemoryApiResources(Config.Apis)
@@ -92,13 +96,14 @@ namespace Rs.App.Core.Auth.Server
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseIdentityServer();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseBlockNodUsedIdentity();
 
             app.UseEndpoints(endpoints =>
             {
